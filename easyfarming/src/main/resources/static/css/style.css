@@ -1,0 +1,194 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'ABeeZee';
+}
+
+html, body{
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.center{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+header{
+    padding: 20px 0;
+}
+
+.logo{
+    width: 50%;
+
+}
+
+.menu{
+    width: 50%;
+    text-align: right;
+}
+
+
+.menu a{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+section.sobre{
+    height: calc(100%-20px);
+    position: relative;
+}
+
+.extras{
+    position:absolute;
+    bottom: -800px;
+    right: -500px;
+    width: 1200px;
+    height: 1150px;
+    border-radius: 50%; /* arredonda as bordas*/
+    background-color: #83bf21;
+}
+
+.extras-about-us{
+    position:absolute;
+    bottom: -600px;
+    right: -500px;
+    width: 1200px;
+    height: 1150px;
+    border-radius: 50%; /* arredonda as bordas*/
+    background-color: #83bf21;
+}
+
+.extras-login-signUp{
+    position:absolute;
+    bottom: -400px;
+    right: -500px;
+    width: 1200px;
+    height: 1150px;
+    border-radius: 50%; /* arredonda as bordas*/
+    background-color: #83bf21;
+}
+
+.texto-sobre{
+    margin-top: 100px;
+}
+
+.texto-sobre h1{
+    font-size: 60px;
+}
+
+.texto-sobre h3{
+    margin-top: 20px 0;
+    color: #83bf21;
+}
+
+.texto-sobre p{
+    margin-bottom: 20px;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 800px;
+    text-align: left;
+}
+
+.texto-sobre a.button{
+    border: 0;
+    background-color: #83bf21;
+    font-size: 18px;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+}
+
+.signup-box{
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    background-color: #83bf21;
+    border-radius: 3px;
+}
+
+.login-box{
+    width: 360px;
+    height: 280px;
+    margin: auto;
+    border-radius: 3px;
+    background-color: #83bf21;
+}
+
+.signup-box h1{
+    text-align: center;
+    padding-top: 15px;
+}
+
+.login-box h1{
+    text-align: center;
+    padding-top: 15px;
+}
+
+.signup-box h4{
+    text-align: center;
+}
+
+form{
+    width: 300px;
+    margin-left: 20px;
+}
+
+form label{
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+form input{
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+}
+
+button[type="submit"]{
+    width: 300px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2f460a;
+    color: white;
+    font-size: 18px;
+}
+
+p{
+    text-align: center;
+    padding-top: 20px;
+    font-size: 15px;
+}
+
+.go-login-signup{
+    text-align: center;
+    color: black;
+    font-size: 15px;
+    margin-top: -10px;
+}
+
+.go-login-signup a{
+    color: #83bf21;
+}
+
