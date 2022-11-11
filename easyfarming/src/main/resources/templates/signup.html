@@ -10,13 +10,12 @@
             <div class = "center">
                 <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
                 <div class="menu">
-                    <a href="index.html">Home</a>
+                    <a href="/index.html" th:href="@{/home}">Home</a>
                 </div><!--menu-->
             </div><!--center-->
         </header>
         <div class="signup-box">
             <h1>Sign Up</h1>
-            <h4>Se quiser escrever alguma coisinha</h4>
             <form action="userpage.html">
                 <label>First Name</label>
                 <input type="text" placeholder="">
@@ -31,7 +30,7 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
-        <p class="go-login-signup">Already have an account?<a href="login.html"> Login here!</a></p>
+        <p class="go-login-signup">Already have an account?<a href="/login.html" th:href="@{/login}"> Login here!</a></p>
         <div class="extras-login-signUp">
             <img src="assets/—Pngtree—character collection of gardener big_7585259.png"height="800" width="800"/>
         </div><!--extras-->

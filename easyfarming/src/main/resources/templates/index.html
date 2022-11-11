@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Easy Farming</title>
         <link href= "css/style.css" rel="stylesheet"/>
@@ -10,9 +11,9 @@
             <div class = "center">
                 <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
                 <div class="menu">
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About Us</a>
-                    <a href="login.html">Login</a>
+                    <a href="/about.html" th:href="@{/about}">About Us</a>
+                    <a href="/signup.html" th:href="@{/signup}">Sign Up</a>
+                    <a href="/login.html" th:href="@{/login}">Login</a>
                 </div><!--menu-->
             </div><!--center-->
         </header>
@@ -24,7 +25,7 @@
                 <div class="texto-sobre">
                     <h1>Slogan da Página<br/>Mais <span style="color:#83bf21 ;">Slogan</span></h1>
                     <p>Be aware of your surroundings and don't miss even the smallest details! With Easy Farming, by taking a simple photo you can find out everything about the plant in front of you. Want to make a garden but don't know how to take care of it? Sign Up and get a personalized experience with watering schedules and much more!</p>
-                    <a href="signup.html" class="button">Sign Up</a>
+                    <a href="/signup.html" th:href="@{/signup}" class="button">Sign Up</a>
                 </div>
             </div>
         </section>

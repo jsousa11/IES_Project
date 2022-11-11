@@ -11,9 +11,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Controller
 public class Controller1 {
-    @GetMapping("/about.html")
+
+    @GetMapping("/home")
+    public String home() {
+        return "index";
+    }
+    @GetMapping("/about")
     public String about() {
-        return "about.html";
+        return "about";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
     }
 }

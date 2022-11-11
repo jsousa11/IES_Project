@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Easy Farming</title>
         <link href= "css/style.css" rel="stylesheet"/>
@@ -10,7 +11,7 @@
             <div class = "center">
                 <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
                 <div class="menu">
-                    <a href="index.html">Home</a>
+                    <a href="/index.html" th:href="@{/home}">Home</a>
                 </div><!--menu-->
             </div><!--center-->
         </header>
@@ -25,7 +26,7 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
-        <p class="go-login-signup">Not have an account?<a href="signup.html"> Sign Up here!</a></p>
+        <p class="go-login-signup">Not have an account?<a href="/signup.html" th:href="@{/signup}"> Sign Up here!</a></p>
         <div class="extras-login-signUp">
             <img src="assets/—Pngtree—character collection of gardener big_7585259.png"height="800" width="800"/>
         </div><!--extras-->
