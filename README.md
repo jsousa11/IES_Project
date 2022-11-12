@@ -37,6 +37,7 @@ mvn package
 http://localhost:8090/
 
 ## Access to the website
-
+This is the first delivery, so all pages are static and work according to the userStories. In the write and insert fields you don't need to fill in anything, you just need to press the "Submit" buttons to move forward 
 - To use __Pedro__ profile, do Login
 - To use __Ana__ profile, do Signup
+- To try the upload feature, click on the button "Try Now"
