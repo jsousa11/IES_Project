@@ -33,9 +33,14 @@ public class Controller1 {
         return "signup";
     }
 
-    @GetMapping("/userpage")
-    public String userpage() {
-        return "userpage";
+    @GetMapping("/userpageP")
+    public String userpageP() {
+        return "userpageP";
+    }
+
+    @GetMapping("/userpageA")
+    public String userpageA() {
+        return "userpageA";
     }
 
     @GetMapping("/upload")

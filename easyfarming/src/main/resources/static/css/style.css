@@ -317,14 +317,21 @@ p{
     margin-left: 20px;
     margin-right: 300px;
 }
+
+.info-tasks h2{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
 .info-tasks{
     width: 465px;
     height: 120px;
-    margin: auto;
+    /*margin: auto;*/
     border-radius: 3px;
     float: left;
-    display: block;
+    /*display: block;*/
     margin-left: 2px;
     margin-right: 20px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 }
