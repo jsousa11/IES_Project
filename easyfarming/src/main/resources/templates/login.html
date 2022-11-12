@@ -23,7 +23,9 @@
                 <label>Password</label>
                 <input type="password" placeholder="">
                 <!--<input type="button" value="Submit" >-->
-                <button type="submit">Submit</button>
+                <a href="/userpage.html" th:href="@{/userpage}">
+                    <button type="submit" >Submit</button>
+                </a>
             </form>
         </div>
         <p class="go-login-signup">Not have an account?<a href="/signup.html" th:href="@{/signup}"> Sign Up here!</a></p>
