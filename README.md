@@ -1,8 +1,3 @@
-
-#### 81382: Catarina Marques
-#### 102383: Vânia Morais
-#### 103415: João Sousa
-
 # Easy Farming
 
 Easy Farming - Sistema de aconselhamento online para agricultura que permite ao utilizador introduzir informações acerca das suas culturas e receber notificações para a respectiva gestão.
