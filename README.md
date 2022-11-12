@@ -1,17 +1,23 @@
 # Easy Farming
 
-Easy Farming - Sistema de aconselhamento online para agricultura que permite ao utilizador introduzir informações acerca das suas culturas e receber notificações para a respectiva gestão.
+Easy Farming - Online advice system for agriculture that allows the user to enter information about their crops and receive notifications for their management.
+
 
 ## Project team:
-| Role 	        |Nome 	          |Email 	                  |NMEC   |
+
+| Role 	        |Name 	          |Email 	                  |NMEC   |
 |---------------|-----------------|-------------------------|-------|
 | DevOps        |João Sousa 	    |jsousa11@ua.pt 	        |103415 |
 | Architect     |Catarina Marques	|catarina.a.marques@ua.pt |81382  |
 | Team Manager  |Vânia Morais     |vania.morais@ua.pt       |102382 |
 
+*Everyone is Product Owner and Developer.
+
 ## Project resources:
 
 Atlassian Scrum Board: https://easyfarming.atlassian.net/jira/core/projects/EAS/board
+
+Report: https://docs.google.com/document/d/1XZqbB-mA_-0y-NWJ4Dap0eEtpzrNtgahLEfi6SbkrNM/edit
 
 ## Run the website locally
 
@@ -31,6 +37,7 @@ mvn package
 http://localhost:8090/
 
 ## Access to the website
-
-- Para utilizar o perfil do __Pedro__, faz-se o Login
-- Para utilizar o perfil da __Ana__, faz-se Signup
+This is the first delivery, so all pages are static and work according to the userStories. In the write and insert fields you don't need to fill in anything, you just need to press the "Submit" buttons to move forward 
+- To use __Pedro__ profile, do Login
+- To use __Ana__ profile, do Signup
+- To try the upload feature, click on the button "Try Now"
