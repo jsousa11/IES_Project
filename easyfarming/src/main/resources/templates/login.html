@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="eng" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Easy Farming</title>
         <link href= "css/style.css" rel="stylesheet"/>
@@ -17,7 +17,7 @@
         </header>
         <div class="login-box">
             <h1>Login</h1>
-            <form action="userpage.html">
+            <form th:action="@{/userpage}" href="/userpage.html">
                 <label>Email</label>
                 <input type="email" placeholder="">
                 <label>Password</label>

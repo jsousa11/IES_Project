@@ -32,4 +32,19 @@ public class Controller1 {
     public String signup() {
         return "signup";
     }
+
+    @GetMapping("/userpage")
+    public String userpage() {
+        return "userpage";
+    }
+
+    @GetMapping("/upload")
+    public String upload() {
+        return "upload";
+    }
+
+    @GetMapping("/info")
+    public String info() {
+        return "info";
+    }
 }
