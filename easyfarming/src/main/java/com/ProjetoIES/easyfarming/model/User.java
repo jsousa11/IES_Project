@@ -10,73 +10,68 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId", nullable = false)
     private long id;
-
-    @Column(name = "email", unique = true, nullable = false)
+    private String firstName;
+    private String lastName;
     private String email;
-
-    @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "firstName", nullable = false)
-    private String first_name;
-
-    @Column(name = "lastName", nullable = false)
-    private String last_name;
 
     public User(){        
     }
 
     public User(String first_name, String last_name, String email, String password){
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = first_name;
+        this.lastName = last_name;
         this.email = email;
         this.password = password;
     }
 
-    public long getId(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+        public long getId() {
         return id;
     }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    public String getEmail(){
+    @Column(name = "firstName", nullable = false)
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+ 
+    @Column(name = "lastName", nullable = false)
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+ 
+    @Column(name = "email", nullable = false)
+    public String getEmail() {
         return email;
     }
-
-    public void setEmail(String email){
-        this.email = email;
+    public void setEmail(String emailId) {
+        this.email = emailId;
     }
 
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
 
 
     @Override
     public String toString() {
-        return "Client [first_name=" + first_name + ", last_name=" + last_name + ", id=" + id + ", email=" + email
+        return "Client [firstName=" + firstName + ", lastName=" + lastName + ", id=" + id + ", email=" + email
                 +", password=" + password + "]";
     }
 }
