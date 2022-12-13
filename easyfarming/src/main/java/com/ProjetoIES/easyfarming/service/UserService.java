@@ -38,7 +38,7 @@ public class UserService {
     }
 
     
-    public User updateUSer(User user) {
+    public User updateUser(User user) {
         User existingUser = userRepository.findById(user.getId()).orElse(null);
         existingUser.setEmail(user.getEmail());
         existingUser.setFirstName(user.getFirstName());

@@ -25,7 +25,8 @@
               <input type="file" id="img" name="img" accept="image/*">
               <button type="submit">Submit</button>
             </form>
-            <p>Resultados</p>
+            <div class="space"></div>
+            <p class="p-results">Results</p>
             <ul id="resultados"></ul>
             <script>
                 function onSubmit(ev) {
@@ -44,7 +45,7 @@
                         res = document.getElementById("resultados");
                         json["payload"]["predictions"].map(el => el["name"]).forEach(name => {
                             child = document.createElement("li");
-                            child.innerHTML = `<a href="info/${name.toLowerCase()}">${name}</a>`;
+                            child.innerHTML = `<a class="a-results" href="info/${name.toLowerCase()}">${name}</a>`;
                             res.appendChild(child);
                         });
                     })
