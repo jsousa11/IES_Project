@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ProjetoIES.easyfarming.model.User;
+
 @Controller
 public class Controller1 {
 
@@ -48,8 +50,13 @@ public class Controller1 {
         return "upload";
     }
 
-    @GetMapping("/info")
-    public String info() {
-        return "info";
+    @PostMapping("/upload")
+    public String uploadPost() {
+        return "upload";
+    }
+
+    @GetMapping("/info/{plant}")
+    public String info(@PathVariable("plant") String plant) {
+        return plant;
     }
 }
