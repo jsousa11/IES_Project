@@ -20,10 +20,30 @@ html, body{
 }
 
 .center form{
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-top: 20px;
     text-align: left;
 }
+
+.p-results{
+    font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+
+ul{
+    list-style: none;
+    width: 100%;
+}
+
+li{
+    color: #83bf21;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
 
 .h1-upload{
     font-size: 40px;
@@ -165,6 +185,7 @@ section.sobre{
 }
 
 form{
+    height: 200px;
     width: 300px;
     margin-left: 20px;
 }
@@ -334,4 +355,10 @@ p{
     margin-left: 2px;
     margin-right: 20px;
     /*margin-bottom: 10px;*/
+}
+
+
+.space{
+    width: 100%;
+    height: 0px;
 }
