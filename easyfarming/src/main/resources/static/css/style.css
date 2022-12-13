@@ -38,8 +38,11 @@ ul{
     width: 100%;
 }
 
-li{
+.a-results{
     color: #83bf21;
+}
+
+li{
     text-decoration: none;
     margin-bottom: 5px;
 }
@@ -216,16 +219,6 @@ button[type="submit"]{
     font-size: 18px;
 }
 
-button[type="upload"]{
-    width: 300px;
-    height: 35px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #83bf21;
-    color: white;
-    font-size: 18px;
-}
 
 p{
     text-align: center;
