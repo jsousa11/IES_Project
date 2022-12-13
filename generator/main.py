@@ -13,20 +13,51 @@ class Message_Generator:
     def send_message(self, message):
         self.channel.basic_publish(exchange='', routing_key='generator', body=message)
         print(" [x] Sent %r" % message)
-
     def temperature(self):
-        while True:
-            avg_temp = 25
-            temp = round(avg_temp + random.uniform(-25, 10))
-            json_temp = '{"temperature": %dªC}' % temp
-            self.channel.basic_publish(exchange='', routing_key='generator', body=json_temp)
-            print(" [x] Sent %r" % json_temp)
-            time.sleep(1)
+        import requests
+        import json
+        station_id = "1210702"
+        url = "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json"
+        response = requests.get(url)
+        data = response.json()
+        days = data.keys()
+        temp = data[sorted(days)[-1]][station_id]["temperatura"]
+        hum = data[sorted(days)[-1]][station_id]["humidade"]
+        weather = {
+            "temperature": temp,
+            "humidity": hum
+        }
+        json_weather = json.dumps(weather)
+        self.channel.basic_publish(exchange='', routing_key='generator', body=json_weather)
+        print(" [x] Sent %r" % json_weather)
+
+    def dump(self):
+        import requests
+        import json
+        station_id = "1210702"
+        url = "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json"
+        response = requests.get(url)
+        data = response.json()
+        days = data.keys()
+        for d in days:
+            temp = data[d][station_id]["temperatura"]
+            hum = data[d][station_id]["humidade"]
+            weather = {
+                "temperature": temp,
+                "humidity": hum
+            }
+            json_weather = json.dumps(weather)
+            self.channel.basic_publish(exchange='', routing_key='generator', body=json_weather)
+            print(" [x] Sent %r" % json_weather)
 
 
 def main():
     generator = Message_Generator()
-    generator.temperature()
+    generator.dump()
+
+    while True:
+        generator.temperature()
+        time.sleep(1)
 
 
 if __name__ == '__main__':
