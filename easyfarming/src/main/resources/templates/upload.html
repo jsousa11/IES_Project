@@ -5,6 +5,9 @@
         <link href= "css/style.css" rel="stylesheet"/>
         <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
         <meta nome="viewport" content=" witdth= device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
         <header>
@@ -27,63 +30,83 @@
             <div class="info-tasks">
                 <h1 class="h1-upload">Results:</h1>
                 <ul id="resultados"></ul>
-                <script type="text/javascript">
-                  
-                    document.querySelector('button').onclick = function sendIdentification() {
-                        const files = [...document.querySelector('input[type=file]').files];
-                        const promises = files.map((file) => {
-                          return new Promise((resolve, reject) => {
-                              const reader = new FileReader();
-                              reader.onload = (event) => {
-                                const res = event.target.result;
-                                console.log(res);
-                                resolve(res);
-                              }
-                              reader.readAsDataURL(file)
-                          })
-                        })
-                        
-                        Promise.all(promises).then((base64files) => {
-                          console.log(base64files)
-                                
-                          const data = {
-                            api_key: "p9zvCLwZ1BWIfO9DYgszYYB1H1YKPKm9ygbQ3KSdbosSWn16FT",
-                            images: base64files,
-                            // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
-                            modifiers: ["crops_fast", "similar_images"],
-                            plant_language: "en",
-                            // plant details docs: https://github.com/flowerchecker/Plant-id-API/wiki/Plant-details
-                            plant_details: ["common_names",
-                                            "url",
-                                            "name_authority",
-                                            "wiki_description",
-                                            "taxonomy",
-                                            "synonyms"],
-                          };
-                          
-                          fetch('https://api.plant.id/v2/identify', {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(data),
-                          })
-                          .then(response => response.json())
-                          .then(data => {
-                            console.log('Success:', data);
-                            res = document.getElementById("resultados");
-                            for (let i = 0; i < data["suggestions"].length; i++) {
-                                child = document.createElement("li");
-                                child.innerHTML = `<a class="a-results" href="info/${data["suggestions"][i]["plant_details"]["common_names"][0]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
-                                res.appendChild(child);
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLongTitle" data-bind="text: nome"></p>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  document.querySelector('button').onclick = function sendIdentification() {
+                      const files = [...document.querySelector('input[type=file]').files];
+                      const promises = files.map((file) => {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                              const res = event.target.result;
+                              console.log(res);
+                              resolve(res);
                             }
-                            })
-                          .catch((error) => {
-                            console.error('Error:', error);
-                          });
+                            reader.readAsDataURL(file)
                         })
-                      
-                    };
+                      })
+
+                      Promise.all(promises).then((base64files) => {
+                        console.log(base64files)
+
+                        const data = {
+                          api_key: "p9zvCLwZ1BWIfO9DYgszYYB1H1YKPKm9ygbQ3KSdbosSWn16FT",
+                          images: base64files,
+                          // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
+                          modifiers: ["crops_fast", "similar_images"],
+                          plant_language: "en",
+                          // plant details docs: https://github.com/flowerchecker/Plant-id-API/wiki/Plant-details
+                          plant_details: ["common_names",
+                                          "url",
+                                          "name_authority",
+                                          "wiki_description",
+                                          "taxonomy",
+                                          "synonyms"],
+                        };
+
+                        fetch('https://api.plant.id/v2/identify', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(data),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                          console.log('Success:', data);
+                          res = document.getElementById("resultados");
+                          for (let i = 0; i < data["suggestions"].length; i++) {
+                              child = document.createElement("li");
+                              // child.innerHTML = `<a class="a-results" href="info/${data["suggestions"][i]["plant_details"]["common_names"][0]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
+                              child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" >${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
+                              res.appendChild(child);
+                          }
+                          })
+                        .catch((error) => {
+                          console.error('Error:', error);
+                        });
+                      })
+                    
+                  };
                     
                 </script>
             </div>
