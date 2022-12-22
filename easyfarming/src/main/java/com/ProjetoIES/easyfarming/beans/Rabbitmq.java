@@ -19,8 +19,8 @@ public class Rabbitmq {
             if (message.getHumidity() < 50) {
                 System.out.println("ALERT: Humidity is low!");
             }
-            if (message.getPercipitation() > 50) {
-                System.out.println("ALERT: Percipitation is high!");
+            if (message.getPrecipitation() > 50) {
+                System.out.println("ALERT: Precipitation is high!");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

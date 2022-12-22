@@ -35,7 +35,10 @@ class Message_Generator:
         response = requests.get(url)
         data = response.json()
         precipitation = data["data"][0]["precipitaProb"]
-        json_precipitation = json.dumps("precipitation (%): " + precipitation)
+        precipitation_p = {
+            "precipitation": precipitation
+        }
+        json_precipitation = json.dumps(precipitation_p)
         self.channel.basic_publish(exchange='', routing_key='generator', body=json_precipitation)
         print(" [x] Sent %r" % json_precipitation)
 
@@ -46,6 +49,11 @@ class Message_Generator:
         response = requests.get(url)
         data = response.json()
         days = data.keys()
+
+        url2 = "http://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1010500.json"
+        response2 = requests.get(url2)
+        data2 = response2.json()
+
         for d in days:
             temp = data[d][station_id]["temperatura"]
             hum = data[d][station_id]["humidade"]
@@ -53,9 +61,22 @@ class Message_Generator:
                 "temperature": temp,
                 "humidity": hum
             }
+
             json_weather = json.dumps(weather)
             self.channel.basic_publish(exchange='', routing_key='generator', body=json_weather)
+
+            precipitation = data2["data"][0]["precipitaProb"]
+            precipitation_p = {
+                "precipitation": precipitation
+            }
+            json_precipitation = json.dumps(precipitation_p)
+            self.channel.basic_publish(exchange='', routing_key='generator', body=json_precipitation)
             print(" [x] Sent %r" % json_weather)
+            print(" [x] Sent %r" % json_precipitation)
+
+
+
+
 
 class info:
     def __init__(self):
