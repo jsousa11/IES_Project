@@ -2,8 +2,8 @@ package com.ProjetoIES.easyfarming.beans;
 
 public class Message {
     Integer temperature;
-
     Integer humidity;
+    Integer percipitation;
 
     public Integer getTemperature() {
         return temperature;
@@ -19,5 +19,13 @@ public class Message {
 
     public void setHumidity(Integer humidity) {
         this.humidity = humidity;
+    }
+
+    public Integer getPercipitation() {
+        return percipitation;
+    }
+
+    public void setPercipitation(Integer percipitation) {
+        this.percipitation = percipitation;
     }
 }

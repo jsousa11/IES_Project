@@ -1,10 +1,9 @@
 import random
 import time
-
 import pika
 import wikipedia
-
-
+import requests
+import json
 
 class Message_Generator:
     def __init__(self):
@@ -15,9 +14,7 @@ class Message_Generator:
     def send_message(self, message):
         self.channel.basic_publish(exchange='', routing_key='generator', body=message)
         print(" [x] Sent %r" % message)
-    def temperature(self):
-        import requests
-        import json
+    def weather(self):
         station_id = "1210702"
         url = "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json"
         response = requests.get(url)
@@ -33,9 +30,17 @@ class Message_Generator:
         self.channel.basic_publish(exchange='', routing_key='generator', body=json_weather)
         print(" [x] Sent %r" % json_weather)
 
+    def precipitation(self):
+        url = "http://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1010500.json"
+        response = requests.get(url)
+        data = response.json()
+        precipitation = data["data"][0]["precipitaProb"]
+        json_precipitation = json.dumps("precipitation (%): " + precipitation)
+        self.channel.basic_publish(exchange='', routing_key='generator', body=json_precipitation)
+        print(" [x] Sent %r" % json_precipitation)
+
+
     def dump(self):
-        import requests
-        import json
         station_id = "1210702"
         url = "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json"
         response = requests.get(url)
@@ -71,7 +76,8 @@ def main():
     generator.dump()
 
     while True:
-        generator.temperature()
+        generator.weather()
+        generator.precipitation()
         time.sleep(1)
         
     details = info()
