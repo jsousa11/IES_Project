@@ -32,20 +32,23 @@
                 <ul id="resultados"></ul>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
+                  <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <p class="modal-title" id="exampleModalLongTitle" data-bind="text: nome"></p>
+                        <h2 class="modal-title" id="exampleModalLongTitle"></h2>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        ...
+                        <h3>Image:</h3>
+                        <img class="modal-image"/>
+                        <h3>Description:</h3>
+                        <p class="modal-info"></p>
+                        <h3>Taxonomy:</h3>
+                        <p class="modal-taxonomy"></p>
                       </div>
-                      <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                       </div>
                     </div>
                   </div>
@@ -69,7 +72,7 @@
                         console.log(base64files)
 
                         const data = {
-                          api_key: "p9zvCLwZ1BWIfO9DYgszYYB1H1YKPKm9ygbQ3KSdbosSWn16FT",
+                          api_key: "vKsWOAnsIVdoAIo66YpClu0aIfCMSwOBl9wLK78z2vxEi8XoVF",
                           images: base64files,
                           // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
                           modifiers: ["crops_fast", "similar_images"],
@@ -94,10 +97,18 @@
                         .then(data => {
                           console.log('Success:', data);
                           res = document.getElementById("resultados");
+                          if (data["images"]["is_plant"] == "false"){
+                            res.innerHTML = "No plant found";
+                          }
+                            
                           for (let i = 0; i < data["suggestions"].length; i++) {
                               child = document.createElement("li");
-                              // child.innerHTML = `<a class="a-results" href="info/${data["suggestions"][i]["plant_details"]["common_names"][0]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
-                              child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" >${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
+                              child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" 
+                                                data-plant-name="${data["suggestions"][i]["plant_details"]["common_names"][0]}" 
+                                                data-plant-description="${data["suggestions"][i]["plant_details"]["wiki_description"]["value"]}"
+                                                data-plant-image="${data["suggestions"][i]["similar_images"][0]["url"]}"
+                                                data-plant-taxonomy="${data["suggestions"][i]["plant_details"]["taxonomy"][i]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
+                              //child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" >${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
                               res.appendChild(child);
                           }
                           })
@@ -107,7 +118,19 @@
                       })
                     
                   };
-                    
+                  $('#exampleModalLong').on('show.bs.modal', function (event) {
+                    const button = $(event.relatedTarget) // Button that triggered the modal
+                    const plantName = button.data('plant-name') // Extract info from data-* attributes
+                    const plantDescription = button.data('plant-description')
+                    const plantImage = button.data('plant-image')
+                    const plantTaxonomy = button.data('plant-taxonomy')
+                    // Update the modal's content
+                    const modal = $(this)
+                    modal.find('.modal-title').text(plantName)
+                    modal.find('.modal-info').text(plantDescription)
+                    modal.find('.modal-taxonomy').text(plantTaxonomy)
+                    modal.find('.modal-image').attr("src", plantImage)
+                  });
                 </script>
             </div>
         </div>
