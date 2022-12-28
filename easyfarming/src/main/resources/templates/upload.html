@@ -12,11 +12,10 @@
     <body>
         <header>
             <div class = "center">
-                <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
+                <div class="logo"><img class= "image" src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
                 <div class="menu">
                     <a href="/index.html" th:href="@{/home}">Home</a>
                     <a href="/about.html" th:href="@{/about}">About Us</a>
-                    <a href="/signup.html" th:href="@{/signup}">Sign Up</a>
                     <a href="/login.html" th:href="@{/login}">Login</a>
                 </div><!--menu-->
             </div><!--center-->
@@ -29,6 +28,7 @@
             </form>
             <div class="space"></div>
             <div class="info-tasks">
+                <h1 class="h1-upload">Results:</h1>
                 <ul id="resultados"></ul>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

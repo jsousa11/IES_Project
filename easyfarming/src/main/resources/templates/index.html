@@ -9,10 +9,9 @@
     <body>
         <header>
             <div class = "center">
-                <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
+                <div class="logo"><img class= "image" src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
                 <div class="menu">
                     <a href="/about.html" th:href="@{/about}">About Us</a>
-                    <a href="/signup.html" th:href="@{/signup}">Sign Up</a>
                     <a href="/login.html" th:href="@{/login}">Login</a>
                 </div><!--menu-->
             </div><!--center-->
@@ -24,10 +23,10 @@
             <div class="center">
                 <div class="texto-sobre">
                     <h1>Easy Farming</h1>
-                    <h2 style="font-size: 50px;">Adding <span style="color:#83bf21 ;">green</span> to your life</h2>
-                    <p>Be aware of your surroundings and don't miss even the smallest details! With Easy Farming, by taking a simple photo you can find out everything about the plant in front of you. Want to make a garden but don't know how to take care of it? Sign Up and get a personalized experience with watering schedules and much more!</p>
-                    <a href="/signup.html" th:href="@{/signup}" class="button">  Sign Up  </a>
-                    <p>Want to try taking a photo, but not sure if you want to do SignUp?</p>
+                    <h2>Adding <span style="color:#83bf21 ;">green</span> to your life</h2>
+                    <p>Be aware of your surroundings and don't miss even the smallest details! Want to make a garden but don't know how to take care of it? Login and get a personalized experience with watering schedules and much more!</p>
+                    <a href="/login.html" th:href="@{/login}" class="button">  Login  </a>
+                    <p>Want to try taking a photo, but not sure if you want to Login?</p>
                     <a href="/upload.html" th:href="@{/upload}" class="button">Try now!</a>
                 </div>
             </div>
