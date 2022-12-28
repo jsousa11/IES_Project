@@ -23,8 +23,8 @@
         <div class="center">
             <h1 class="h1-upload">Upload the image of your plant and find out everything about it!</h1>
             <form>
-                <input type="file" multiple />
-                <button type="button">Submit</button>
+              <input type="file" multiple />
+              <button type="button">OK</button>
             </form>
             <div class="space"></div>
             <div class="info-tasks">
@@ -46,7 +46,12 @@
                         <h3>Description:</h3>
                         <p class="modal-info"></p>
                         <h3>Taxonomy:</h3>
-                        <p class="modal-taxonomy"></p>
+                        <p class="modal-taxonomyclass"></p>
+                        <p class="modal-taxonomy1"></p>
+                        <p class="modal-taxonomy2"></p>
+                        <p class="modal-taxonomy3"></p>
+                        <p class="modal-taxonomy4"></p>
+                        <p class="modal-taxonomy5"></p>
                       </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
@@ -54,7 +59,7 @@
                   </div>
                 </div>
                 <script>
-                  document.querySelector('button').onclick = function sendIdentification() {
+                  docuxment.querySelector('button').onclick = function sendIdentification() {
                       const files = [...document.querySelector('input[type=file]').files];
                       const promises = files.map((file) => {
                         return new Promise((resolve, reject) => {
@@ -107,8 +112,12 @@
                                                 data-plant-name="${data["suggestions"][i]["plant_details"]["common_names"][0]}" 
                                                 data-plant-description="${data["suggestions"][i]["plant_details"]["wiki_description"]["value"]}"
                                                 data-plant-image="${data["suggestions"][i]["similar_images"][0]["url"]}"
-                                                data-plant-taxonomy="${data["suggestions"][i]["plant_details"]["taxonomy"][i]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
-                              //child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" >${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
+                                                data-plant-taxonomyclass="${data["suggestions"][i]["plant_details"]["taxonomy"]["class"]}"
+                                                data-plant-taxonomyfamily="${data["suggestions"][i]["plant_details"]["taxonomy"]["family"]}"
+                                                data-plant-taxonomygenus="${data["suggestions"][i]["plant_details"]["taxonomy"]["genus"]}"
+                                                data-plant-taxonomykingdom="${data["suggestions"][i]["plant_details"]["taxonomy"]["kingdom"]}"
+                                                data-plant-taxonomyorder="${data["suggestions"][i]["plant_details"]["taxonomy"]["order"]}"
+                                                data-plant-taxonomyphylum="${data["suggestions"][i]["plant_details"]["taxonomy"]["phylum"]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
                               res.appendChild(child);
                           }
                           })
@@ -123,13 +132,23 @@
                     const plantName = button.data('plant-name') // Extract info from data-* attributes
                     const plantDescription = button.data('plant-description')
                     const plantImage = button.data('plant-image')
-                    const plantTaxonomy = button.data('plant-taxonomy')
+                    const plantTaxonomyClass = button.data('plant-taxonomyclass')
+                    const plantTaxonomy1 = button.data('plant-taxonomyfamily')
+                    const plantTaxonomy2 = button.data('plant-taxonomygenus')
+                    const plantTaxonomy3 = button.data('plant-taxonomykingdom')
+                    const plantTaxonomy4 = button.data('plant-taxonomyorder')
+                    const plantTaxonomy5 = button.data('plant-taxonomyphylum')
                     // Update the modal's content
                     const modal = $(this)
                     modal.find('.modal-title').text(plantName)
                     modal.find('.modal-info').text(plantDescription)
-                    modal.find('.modal-taxonomy').text(plantTaxonomy)
                     modal.find('.modal-image').attr("src", plantImage)
+                    modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
+                    modal.find('.modal-taxonomy1').text(plantTaxonomy1)
+                    modal.find('.modal-taxonomy2').text(plantTaxonomy2)
+                    modal.find('.modal-taxonomy3').text(plantTaxonomy3)
+                    modal.find('.modal-taxonomy4').text(plantTaxonomy4)
+                    modal.find('.modal-taxonomy4').text(plantTaxonomy5)
                   });
                 </script>
             </div>
