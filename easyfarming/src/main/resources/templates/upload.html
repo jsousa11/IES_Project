@@ -5,6 +5,9 @@
         <link href= "css/style.css" rel="stylesheet"/>
         <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
         <meta nome="viewport" content=" witdth= device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
         <header>
@@ -19,39 +22,136 @@
         </header>
         <div class="center">
             <h1 class="h1-upload">Upload the image of your plant and find out everything about it!</h1>
-            <form onsubmit="return onSubmit(event)" method="post">
-              <label for="img">Select image:</label>
-              <input type="file" id="img" name="img" accept="image/*">
-              <button type="submit">Submit</button>
+            <form>
+              <input type="file" multiple />
+              <button type="button">OK</button>
             </form>
             <div class="space"></div>
-            <p class="p-results">Results</p>
-            <ul id="resultados"></ul>
-            <script>
-                function onSubmit(ev) {
-                    ev.preventDefault();
-                    console.log("Ei")
-                    var input = document.querySelector('input[type="file"]')
+            <div class="info-tasks">
+                <h1 class="h1-upload">Results:</h1>
+                <ul id="resultados"></ul>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLongTitle"></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h3>Image:</h3>
+                        <img class="modal-image"/>
+                        <h3>Description:</h3>
+                        <p class="modal-info"></p>
+                        <h3>Taxonomy:</h3>
+                        <p class="modal-taxonomyclass"></p>
+                        <p class="modal-taxonomy1"> </p>
+                        <p class="modal-taxonomy2">Class: </p>
+                        <p class="modal-taxonomy3"></p>
+                        <p class="modal-taxonomy4"></p>
+                        <p class="modal-taxonomy5"></p>
+                      </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  document.querySelector('button').onclick = function sendIdentification() {
+                      const files = [...document.querySelector('input[type=file]').files];
+                      const promises = files.map((file) => {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                              const res = event.target.result;
+                              console.log(res);
+                              resolve(res);
+                            }
+                            reader.readAsDataURL(file)
+                        })
+                      })
 
-                    var data = new FormData()
-                    data.append('image', input.files[0]);
+                      Promise.all(promises).then((base64files) => {
+                        console.log(base64files)
 
-                    fetch('https://plantrecog.up.railway.app/predict', {
-                        method: 'POST',
-                        body: data
-                    }).then(async resp => {
-                        json = await resp.json();
-                        res = document.getElementById("resultados");
-                        json["payload"]["predictions"].map(el => el["name"]).forEach(name => {
-                            child = document.createElement("li");
-                            child.innerHTML = `<a class="a-results" href="info/${name.toLowerCase()}">${name}</a>`;
-                            res.appendChild(child);
+                        const data = {
+                          api_key: "vKsWOAnsIVdoAIo66YpClu0aIfCMSwOBl9wLK78z2vxEi8XoVF",
+                          images: base64files,
+                          // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
+                          modifiers: ["crops_fast", "similar_images"],
+                          plant_language: "en",
+                          // plant details docs: https://github.com/flowerchecker/Plant-id-API/wiki/Plant-details
+                          plant_details: ["common_names",
+                                          "url",
+                                          "name_authority",
+                                          "wiki_description",
+                                          "taxonomy",
+                                          "synonyms"],
+                        };
+
+                        fetch('https://api.plant.id/v2/identify', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(data),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                          console.log('Success:', data);
+                          res = document.getElementById("resultados");
+                          if (data["images"]["is_plant"] == "false"){
+                            res.innerHTML = "No plant found";
+                          }
+                            
+                          for (let i = 0; i < data["suggestions"].length; i++) {
+                              child = document.createElement("li");
+                              child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" 
+                                                data-plant-name="${data["suggestions"][i]["plant_details"]["common_names"][0]}" 
+                                                data-plant-description="${data["suggestions"][i]["plant_details"]["wiki_description"]["value"]}"
+                                                data-plant-image="${data["suggestions"][i]["similar_images"][0]["url"]}"
+                                                data-plant-taxonomyclass="${data["suggestions"][i]["plant_details"]["taxonomy"]["class"]}"
+                                                data-plant-taxonomyfamily="${data["suggestions"][i]["plant_details"]["taxonomy"]["family"]}"
+                                                data-plant-taxonomygenus="${data["suggestions"][i]["plant_details"]["taxonomy"]["genus"]}"
+                                                data-plant-taxonomykingdom="${data["suggestions"][i]["plant_details"]["taxonomy"]["kingdom"]}"
+                                                data-plant-taxonomyorder="${data["suggestions"][i]["plant_details"]["taxonomy"]["order"]}"
+                                                data-plant-taxonomyphylum="${data["suggestions"][i]["plant_details"]["taxonomy"]["phylum"]}">${data["suggestions"][i]["plant_details"]["common_names"][0].substring(0, 1).toUpperCase()+data["suggestions"][i]["plant_details"]["common_names"][0].substring(1)}</a>`;
+                              res.appendChild(child);
+                          }
+                          })
+                        .catch((error) => {
+                          console.error('Error:', error);
                         });
-                    })
-
-                    return false;
-                }
-            </script>
+                      })
+                    
+                  };
+                  $('#exampleModalLong').on('show.bs.modal', function (event) {
+                    const button = $(event.relatedTarget) // Button that triggered the modal
+                    const plantName = button.data('plant-name') // Extract info from data-* attributes
+                    const plantDescription = button.data('plant-description')
+                    const plantImage = button.data('plant-image')
+                    const plantTaxonomyClass = button.data('plant-taxonomyclass')
+                    const plantTaxonomy1 = button.data('plant-taxonomyfamily')
+                    const plantTaxonomy2 = button.data('plant-taxonomygenus')
+                    const plantTaxonomy3 = button.data('plant-taxonomykingdom')
+                    const plantTaxonomy4 = button.data('plant-taxonomyorder')
+                    const plantTaxonomy5 = button.data('plant-taxonomyphylum')
+                    // Update the modal's content
+                    const modal = $(this)
+                    modal.find('.modal-title').text(plantName)
+                    modal.find('.modal-info').text(plantDescription)
+                    modal.find('.modal-image').attr("src", plantImage)
+                    modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
+                    modal.find('.modal-taxonomy1').text(plantTaxonomy1)
+                    modal.find('.modal-taxonomy2').text(plantTaxonomy2)
+                    modal.find('.modal-taxonomy3').text(plantTaxonomy3)
+                    modal.find('.modal-taxonomy4').text(plantTaxonomy4)
+                    modal.find('.modal-taxonomy4').text(plantTaxonomy5)
+                  });
+                </script>
+            </div>
         </div>
         <div class="extras-upload">
             <img src="assets/—Pngtree—character collection of gardener big_7585259.png"height="800" width="800"/>
