@@ -42,9 +42,9 @@
                       </div>
                       <div class="modal-body">
                         <h3>Image:</h3>
-                        <img class="modal-image"/>
+                        <img id="image"class="modal-image"/>
                         <h3>Description:</h3>
-                        <p class="modal-info"></p>
+                        <p id="description"class="modal-info"></p>
                         <h3>Taxonomy:</h3>
                         <p class="modal-taxonomyclass">Class: </p>
                         <p class="modal-taxonomyfamily">Family: </p>
@@ -103,7 +103,7 @@
                           console.log('Success:', data);
                           res = document.getElementById("resultados");
                           if (data["images"]["is_plant"] == "false"){
-                            res.innerHTML = "No plant found";
+                            res.innerHTML = `<a>No plant found</a>`;
                           }
                             
                           for (let i = 0; i < data["suggestions"].length; i++) {
@@ -150,6 +150,49 @@
                     modal.find('.modal-taxonomyorder').text(plantTaxonomyOrder)
                     modal.find('.modal-taxonomyphylum').text(plantTaxonomyPhylum)
                   });
+
+                  document.getElementById("resultados").addEventListener("click", function(e){
+                    const name = e.target.getAttribute("data-plant-name").replace(/\s/g, '');
+                    const description = e.target.getAttribute("data-plant-description").substring(0, 200);
+                    const image = e.target.getAttribute("data-plant-image");
+                    const classs = e.target.getAttribute("data-plant-taxonomyclass");
+                    const family = e.target.getAttribute("data-plant-taxonomyfamily");
+                    const genus = e.target.getAttribute("data-plant-taxonomygenus");
+                    const kingdom = e.target.getAttribute("data-plant-taxonomykingdom");
+                    const orderr = e.target.getAttribute("data-plant-taxonomyorder");
+                    const phylum = e.target.getAttribute("data-plant-taxonomyphylum");
+                    const dados= { name,image, description, classs, family, genus, kingdom, orderr, phylum};
+                    console.log(dados);
+                    fetch(`/api/v1/plantByName/${name}`)
+                    .then(response => response.json())
+                    .then(exists =>{
+                      // Verifique se o servidor retornou um resultado
+                      if (exists) {
+                        // O usuário já existe na base de dados
+                        console.log('A planta já existe na base de dados');
+                      } else {
+                        // O usuário não existe na base de dados
+                        console.log('A planta não existe na base de dados');
+                        fetch('/api/v1/plants', {
+                          method: 'POST',
+                          body: JSON.stringify(dados),
+                          headers: {
+                            'Content-Type': 'application/json'
+                          }
+                        })
+                        .then(function (response) {
+                          console.log('Os dados foram enviados com sucesso');
+                        })
+                        .catch(function (error) {
+                          console.error('Erro ao enviar os dados:', error);
+                        });
+                      }
+                    })
+                    .catch(function (error) {
+                      console.error('Erro ao verificar a planta:', error);
+                    });
+                  })
+
                 </script>
             </div>
         </div>
