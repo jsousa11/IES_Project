@@ -76,6 +76,8 @@
                 <p class="modal-taxonomykingdom">Kingdom: </p>
                 <p class="modal-taxonomyorder">Order: </p>
                 <p class="modal-taxonomyphylum">Phylum: </p>
+                <h3>Is it harmless to cats and dogs?</h3>
+                <p class="modal-harmless"></p>
               </div>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Add Plant</button>
@@ -102,7 +104,7 @@
                 console.log(base64files)
 
                 const data = {
-                  api_key: "vKsWOAnsIVdoAIo66YpClu0aIfCMSwOBl9wLK78z2vxEi8XoVF",
+                  api_key: "c5IyNUvKQxPhxPnA2MNxgv7kbU2kY1j7CqULqHXEmRADmVvwRd",
                   images: base64files,
                   // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
                   modifiers: ["crops_fast", "similar_images"],
@@ -130,10 +132,10 @@
                   if (data["images"]["is_plant"] == "false"){
                     res.innerHTML = "No plant found";
                   }
-                    
                   for (let i = 0; i < data["suggestions"].length; i++) {
                       child = document.createElement("li");
                       child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" 
+                                        data-plant-cientificname="${data["suggestions"][i]["plant_name"]}" 
                                         data-plant-name="${data["suggestions"][i]["plant_details"]["common_names"][0]}" 
                                         data-plant-description="${data["suggestions"][i]["plant_details"]["wiki_description"]["value"]}"
                                         data-plant-image="${data["suggestions"][i]["similar_images"][0]["url"]}"
@@ -154,6 +156,7 @@
           };
           $('#exampleModalLong').on('show.bs.modal', function (event) {
             const button = $(event.relatedTarget) // Button that triggered the modal
+            const plantCientificName = button.data('plant-cientificname')
             const plantName = button.data('plant-name') // Extract info from data-* attributes
             const plantDescription = button.data('plant-description')
             const plantImage = button.data('plant-image')
@@ -164,6 +167,16 @@
             const plantTaxonomyOrder = button.data('plant-taxonomyorder')
             const plantTaxonomyPhylum = button.data('plant-taxonomyphylum')
             // Update the modal's content
+            const animalsplants = ["Allium sativum","Allium ampeloprasum","Alocacia spp.","Prunus ","Anthurium scherzeranum","Begonia spp.","Rhododendron spp","Aloe vera","Begonia spp.","Portulaca oleracea ","Euphorbia","Caladium hortulanum ","Kalanchoe spp","Allium cepa","Allium schoenoprasum","Prunus ","Cycas revoluta","Dieffenbachia","Zantedeschia aethiopica","Euphorbia","Viola","Tulipa spp.","Lycopersicon spp","Capsicum","Chrysanthemum","Malus","Citrus","Hydrangea arborescens"];
+            var plantHarmless = "Yes"
+            
+            if (animalsplants.includes(plantCientificName)){
+              console.log('entrou?:', plantCientificName);
+              var plantHarmless = "No"
+            }
+            else{
+              var plantHarmless = "Yes"
+            }
             const modal = $(this)
             modal.find('.modal-title').text(plantName)
             modal.find('.modal-info').text(plantDescription)
@@ -174,6 +187,7 @@
             modal.find('.modal-taxonomykingdom').text(plantTaxonomyKingdom)
             modal.find('.modal-taxonomyorder').text(plantTaxonomyOrder)
             modal.find('.modal-taxonomyphylum').text(plantTaxonomyPhylum)
+            modal.find('.modal-harmless').text(plantHarmless)
           });
         </script>
     </div>
