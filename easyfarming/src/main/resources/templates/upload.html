@@ -46,12 +46,12 @@
                         <h3>Description:</h3>
                         <p id="description"class="modal-info"></p>
                         <h3>Taxonomy:</h3>
-                        <p id="classs" class="modal-taxonomyclass"></p>
-                        <p id="family" class="modal-taxonomy1"> </p>
-                        <p id="genus" class="modal-taxonomy2"></p>
-                        <p id="kingdom" class="modal-taxonomy3"></p>
-                        <p id="orderr" class="modal-taxonomy4"></p>
-                        <p id="phylum" class="modal-taxonomy5"></p>
+                        <p class="modal-taxonomyclass">Class: </p>
+                        <p class="modal-taxonomyfamily">Family: </p>
+                        <p class="modal-taxonomygenus">Genus: </p>
+                        <p class="modal-taxonomykingdom">Kingdom: </p>
+                        <p class="modal-taxonomyorder">Order: </p>
+                        <p class="modal-taxonomyphylum">Phylum: </p>
                       </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
@@ -133,22 +133,22 @@
                     const plantDescription = button.data('plant-description')
                     const plantImage = button.data('plant-image')
                     const plantTaxonomyClass = button.data('plant-taxonomyclass')
-                    const plantTaxonomy1 = button.data('plant-taxonomyfamily')
-                    const plantTaxonomy2 = button.data('plant-taxonomygenus')
-                    const plantTaxonomy3 = button.data('plant-taxonomykingdom')
-                    const plantTaxonomy4 = button.data('plant-taxonomyorder')
-                    const plantTaxonomy5 = button.data('plant-taxonomyphylum')
+                    const plantTaxonomyFamily = button.data('plant-taxonomyfamily')
+                    const plantTaxonomyGenus = button.data('plant-taxonomygenus')
+                    const plantTaxonomyKingdom = button.data('plant-taxonomykingdom')
+                    const plantTaxonomyOrder = button.data('plant-taxonomyorder')
+                    const plantTaxonomyPhylum = button.data('plant-taxonomyphylum')
                     // Update the modal's content
                     const modal = $(this)
                     modal.find('.modal-title').text(plantName)
                     modal.find('.modal-info').text(plantDescription)
                     modal.find('.modal-image').attr("src", plantImage)
                     modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
-                    modal.find('.modal-taxonomy1').text(plantTaxonomy1)
-                    modal.find('.modal-taxonomy2').text(plantTaxonomy2)
-                    modal.find('.modal-taxonomy3').text(plantTaxonomy3)
-                    modal.find('.modal-taxonomy4').text(plantTaxonomy4)
-                    modal.find('.modal-taxonomy4').text(plantTaxonomy5)
+                    modal.find('.modal-taxonomyfamily').text(plantTaxonomyFamily)
+                    modal.find('.modal-taxonomygenus').text(plantTaxonomyGenus)
+                    modal.find('.modal-taxonomykingdom').text(plantTaxonomyKingdom)
+                    modal.find('.modal-taxonomyorder').text(plantTaxonomyOrder)
+                    modal.find('.modal-taxonomyphylum').text(plantTaxonomyPhylum)
                   });
 
                   document.getElementById("resultados").addEventListener("click", function(e){
