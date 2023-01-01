@@ -9,7 +9,7 @@
     <body>
         <header>
             <div class = "center">
-                <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
+                <div class="logo"><img class="image" src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
                 <div class="menu">
                     <a href="/index.html" th:href="@{/home}">Home</a>
                 </div><!--menu-->
@@ -17,18 +17,34 @@
         </header>
         <div class="login-box">
             <h1>Login</h1>
-            <form th:action="@{/userpageP}" href="/userpageP.html">
+            <form onsubmit="return validate()">
                 <label>Email</label>
                 <input type="email" placeholder="">
                 <label>Password</label>
                 <input type="password" placeholder="">
                 <!--<input type="button" value="Submit" >-->
-                <a href="/userpageP.html" th:href="@{/userpageP}">
+                <a>
                     <button type="submit" >Submit</button>
                 </a>
             </form>
+            <script>
+                function validate(){
+                    var email = document.querySelector('input[type="email"]')
+                    var password = document.querySelector('input[type="password"]')
+                    if (email.value == "ana@email.com" && password.value == "aninha123"){
+                        window.location = "userpageA"; // Redirecting to other page.
+                        return false;
+                    }
+                    if(email.value == "pedro@email.com" && password.value == "the_farmer123"){
+                        window.location = "userpageP"; // Redirecting to other page.
+                        return false;
+                    }
+                    else{
+                        alert("Invalid username or password");
+                    }
+                }
+            </script>
         </div>
-        <p class="go-login-signup">Not have an account?<a href="/signup.html" th:href="@{/signup}"> Sign Up here!</a></p>
         <div class="extras-login-signUp">
             <img src="assets/—Pngtree—character collection of gardener big_7585259.png"height="800" width="800"/>
         </div><!--extras-->
