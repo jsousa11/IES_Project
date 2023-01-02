@@ -19,28 +19,25 @@ class Message_Generator:
         url = "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json"
         response = requests.get(url)
         data = response.json()
+
+        url2 = "http://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1010500.json"
+        response2 = requests.get(url2)
+        data2 = response2.json()
+
+
         days = data.keys()
         temp = data[sorted(days)[-1]][station_id]["temperatura"]
         hum = data[sorted(days)[-1]][station_id]["humidade"]
+        precip = float(data2["data"][0]["precipitaProb"])
+
         weather = {
             "temperature": temp,
-            "humidity": hum
+            "humidity": hum,
+            "precipitation": precip
         }
         json_weather = json.dumps(weather)
         self.channel.basic_publish(exchange='', routing_key='generator', body=json_weather)
         print(" [x] Sent %r" % json_weather)
-
-    def precipitation(self):
-        url = "http://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1010500.json"
-        response = requests.get(url)
-        data = response.json()
-        precipitation = data["data"][0]["precipitaProb"]
-        precipitation_p = {
-            "precipitation": precipitation
-        }
-        json_precipitation = json.dumps(precipitation_p)
-        self.channel.basic_publish(exchange='', routing_key='generator', body=json_precipitation)
-        print(" [x] Sent %r" % json_precipitation)
 
 
     def dump(self):
@@ -57,22 +54,17 @@ class Message_Generator:
         for d in days:
             temp = data[d][station_id]["temperatura"]
             hum = data[d][station_id]["humidade"]
+            precip = float(data2["data"][0]["precipitaProb"])
+
             weather = {
                 "temperature": temp,
-                "humidity": hum
+                "humidity": hum,
+                "precipitation": precip
             }
 
             json_weather = json.dumps(weather)
             self.channel.basic_publish(exchange='', routing_key='generator', body=json_weather)
-
-            precipitation = data2["data"][0]["precipitaProb"]
-            precipitation_p = {
-                "precipitation": precipitation
-            }
-            json_precipitation = json.dumps(precipitation_p)
-            self.channel.basic_publish(exchange='', routing_key='generator', body=json_precipitation)
             print(" [x] Sent %r" % json_weather)
-            print(" [x] Sent %r" % json_precipitation)
 
 
 
@@ -98,7 +90,7 @@ def main():
 
     while True:
         generator.weather()
-        generator.precipitation()
+        #generator.precipitation()
         time.sleep(1)
         
     details = info()
