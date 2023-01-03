@@ -19,6 +19,8 @@ Atlassian Scrum Board: https://easyfarming.atlassian.net/jira/core/projects/EAS/
 
 Report: https://docs.google.com/document/d/1XZqbB-mA_-0y-NWJ4Dap0eEtpzrNtgahLEfi6SbkrNM/edit
 
+Presentation: https://www.canva.com/design/DAFWD6LsCbc/jMYKfYPBi2eupubWetbiHQ/edit?utm_content=DAFWD6LsCbc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ## Run the website locally
 
 1.
@@ -37,7 +39,6 @@ mvn package
 http://localhost:8090/
 
 ## Access to the website
-This is the first delivery, so all pages are static and work according to the userStories. In the write and insert fields you don't need to fill in anything, you just need to press the "Submit" buttons to move forward 
-- To use __Pedro__ profile, do Login
-- To use __Ana__ profile, do Signup
+- To use __Pedro__ profile, do Login with the email "pedro@email.com" and password "the_farmer123"
+- To use __Ana__ profile, do Login with the email "ana@email.com" and password "aninha123"
 - To try the upload feature, click on the button "Try Now"
