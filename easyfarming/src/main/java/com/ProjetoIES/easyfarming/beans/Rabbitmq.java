@@ -1,12 +1,10 @@
 package com.ProjetoIES.easyfarming.beans;
 
 import com.ProjetoIES.easyfarming.model.Messages;
-import com.ProjetoIES.easyfarming.repository.MessagesRepository;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -29,21 +27,29 @@ public class Rabbitmq {
 
         try {
             Message message = mapper.readValue(jsonMessage, Message.class);
-            if (message.getTemperature() > 25) {
-                System.out.println("ALERT: Temperature is high!");
-                saveMessages(new Messages("Today's temperature is high. Don't forget to water your plants!"));
-            }
-            if (message.getHumidity() < 50) {
+            if (message.getHumidity() <= 50) {
                 System.out.println("ALERT: Humidity is low!");
-                saveMessages(new Messages("Today's humidity is low! Make sure to water your plants!"));
+                saveMessages(new Messages("The humidity is low! Make sure to water your plants!"));
             }
             if (message.getHumidity() > 50) {
                 System.out.println("ALERT: Humidity is high!");
-                saveMessages(new Messages("Today is very humid so you shouldn't water your plants..."));
+                saveMessages(new Messages("The weather is humid so you shouldn't water your plants!"));
             }
-            if (message.getPrecipitation() > 50) {
+            if (message.getPrecipitation() >= 50) {
                 System.out.println("ALERT: Precipitation is high!");
-                saveMessages(new Messages("Today the precipitation is at a high level... It is not necessary to water the plants"));
+                saveMessages(new Messages("The precipitation is at a high level."));
+            }
+            if (message.getPrecipitation() < 50) {
+                System.out.println("ALERT: Precipitation is high!");
+                saveMessages(new Messages("The precipitation is at a low level."));
+            }
+            if (message.getTemperature() >= 23) {
+                System.out.println("ALERT: Temperature is high!");
+                saveMessages(new Messages("Today's temperature is high."));
+            }
+            if (message.getTemperature() < 23) {
+                System.out.println("ALERT: Temperature is low!");
+                saveMessages(new Messages("Today's temperature is low."));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
