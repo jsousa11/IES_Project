@@ -52,6 +52,8 @@
                         <p id="kingdom" class="modal-taxonomy3"></p>
                         <p id="orderr" class="modal-taxonomy4"></p>
                         <p id="phylum" class="modal-taxonomy5"></p>
+                        <h2>Is it harmless to cats and dogs?</h2>
+                        <p class="modal-harmless"></p>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,6 +112,7 @@
                           for (let i = 0; i < data["suggestions"].length; i++) {
                               child = document.createElement("li");
                               child.innerHTML = `<a class="a-results" data-toggle="modal" data-target="#exampleModalLong" 
+                                                data-plant-cientificname="${data["suggestions"][i]["plant_name"]}" 
                                                 data-plant-name="${data["suggestions"][i]["plant_details"]["common_names"][0]}" 
                                                 data-plant-description="${data["suggestions"][i]["plant_details"]["wiki_description"]["value"]}"
                                                 data-plant-image="${data["suggestions"][i]["similar_images"][0]["url"]}"
@@ -130,6 +133,7 @@
                   };
                   $('#exampleModalLong').on('show.bs.modal', function (event) {
                     const button = $(event.relatedTarget) // Button that triggered the modal
+                    const plantCientificName = button.data('plant-cientificname')
                     const plantName = button.data('plant-name') // Extract info from data-* attributes
                     const plantDescription = button.data('plant-description')
                     const plantImage = button.data('plant-image')
@@ -140,16 +144,26 @@
                     const plantTaxonomy4 = button.data('plant-taxonomyorder')
                     const plantTaxonomy5 = button.data('plant-taxonomyphylum')
                     // Update the modal's content
+                    const animalsplants = ["Allium sativum","Allium ampeloprasum","Alocacia spp.","Prunus ","Anthurium scherzeranum","Begonia spp.","Rhododendron spp","Aloe vera","Begonia spp.","Portulaca oleracea ","Euphorbia","Caladium hortulanum ","Kalanchoe spp","Allium cepa","Allium schoenoprasum","Prunus ","Cycas revoluta","Dieffenbachia","Zantedeschia aethiopica","Euphorbia","Viola","Tulipa spp.","Lycopersicon spp","Capsicum","Chrysanthemum","Malus","Citrus","Hydrangea arborescens"];
+                    var plantHarmless = "Yes"
+                                                if (animalsplants.includes(plantCientificName)){
+                      console.log('entrou?:', plantCientificName);
+                      var plantHarmless = "No"
+                    }
+                    else{
+                      var plantHarmless = "Yes"
+                    }
                     const modal = $(this)
                     modal.find('.modal-title').text(plantName)
                     modal.find('.modal-info').text(plantDescription)
                     modal.find('.modal-image').attr("src", plantImage)
-                    modal.find('.modal-taxonomyclass').text("Class: "+plantTaxonomyClass)
-                    modal.find('.modal-taxonomy1').text("Family: "+plantTaxonomy1)
-                    modal.find('.modal-taxonomy2').text("Genus: "+plantTaxonomy2)
-                    modal.find('.modal-taxonomy3').text("Kingdom: "+plantTaxonomy3)
-                    modal.find('.modal-taxonomy4').text("Order: "+plantTaxonomy4)
-                    modal.find('.modal-taxonomy4').text("Phylum: "+plantTaxonomy5)
+                    modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
+                    modal.find('.modal-taxonomyfamily').text(plantTaxonomyFamily)
+                    modal.find('.modal-taxonomygenus').text(plantTaxonomyGenus)
+                    modal.find('.modal-taxonomykingdom').text(plantTaxonomyKingdom)
+                    modal.find('.modal-taxonomyorder').text(plantTaxonomyOrder)
+                    modal.find('.modal-taxonomyphylum').text(plantTaxonomyPhylum)
+                    modal.find('.modal-harmless').text(plantHarmless)
                   });
 
                   document.getElementById("resultados").addEventListener("click", function(e){
