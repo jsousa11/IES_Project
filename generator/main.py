@@ -91,7 +91,7 @@ def main():
     while True:
         generator.weather()
         #generator.precipitation()
-        time.sleep(1)
+        time.sleep(100)
         
     details = info()
     details.info()
