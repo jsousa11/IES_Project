@@ -65,14 +65,9 @@
                         <textarea type="text" class="modal-taxonomy4" id="orderr" value="orderr" rows="1" maxlength="200"></textarea>
                         <label for="phylum">Phylum:</label>
                         <textarea type="text" class="modal-taxonomy5" id="phylum" value="phylum" rows="1" maxlength="200"></textarea>
+                        <label for="harmless">Harmless:</label>
+                        <textarea type="text" class="modal-harmless" id="harmless" value="harmless" rows="1" maxlength="200"></textarea>
                     </div>
-
-                    <!--<p id="classs" class="modal-taxonomyclass"></p>
-                    <p id="family" class="modal-taxonomy1"> </p>
-                    <p id="genus" class="modal-taxonomy2"></p>
-                    <p id="kingdom" class="modal-taxonomy3"></p>
-                    <p id="orderr" class="modal-taxonomy4"></p>
-                    <p id="phylum" class="modal-taxonomy5"></p>-->
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -109,7 +104,8 @@
                                     data-plant-taxonomygenus="${data[j].genus}"
                                     data-plant-taxonomykingdom="${data[j].kingdom}"
                                     data-plant-taxonomyorder="${data[j].orderr}"
-                                    data-plant-taxonomyphylum="${data[j].phylum}">Edit</button>`;
+                                    data-plant-taxonomyphylum="${data[j].phylum}
+                                    data-plant-harmless="${data[j].harmless}">Edit</button>`;
                     list_el.appendChild(child);
                 }
             });
@@ -125,6 +121,8 @@
                 const plantTaxonomy3 = button.data('plant-taxonomykingdom')
                 const plantTaxonomy4 = button.data('plant-taxonomyorder')
                 const plantTaxonomy5 = button.data('plant-taxonomyphylum')
+                const plantHarmless = button.data('plant-harmless')
+                console.log(button.data('plant-harmless'))
                 // Update the modal's content
                 const modal = $(this)
                 modal.find('.modal-title').text(plantName)
@@ -136,6 +134,7 @@
                 modal.find('.modal-taxonomy3').val(plantTaxonomy3)
                 modal.find('.modal-taxonomy4').val(plantTaxonomy4)
                 modal.find('.modal-taxonomy5').val(plantTaxonomy5)
+                modal.find('.modal-harmless').val(plantHarmless)
                 
         });
     </script>

@@ -515,6 +515,8 @@ p{
     width: -moz-available;
 }
 
+
+
 @media (max-device-width: 650px), (max-device-height: 650px) and (hover: none){
     header{
         padding: 70px 0;

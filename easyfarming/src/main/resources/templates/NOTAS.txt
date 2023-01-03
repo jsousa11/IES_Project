@@ -10,5 +10,5 @@ Tarefas a fazer:
     -Fazer a base de dados do Pedro ---FEITO---
     -Pôr tudo responsivo --FEITO, MAS PODE MELHORAR--
     -Pôr mini imagens em cada planta --FEITO--
-    -Fazer pull da parte do João 
+    -Fazer pull da parte do João --FEITO--
     -Fazer a documentação da API (tipo README)

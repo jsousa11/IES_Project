@@ -74,7 +74,12 @@
                           <p id="kingdom" class="modal-taxonomy3"></p>
                           <p id="orderr" class="modal-taxonomy4"></p>
                           <p id="phylum" class="modal-taxonomy5"></p>
+                          <div class="modal-alert">
+                            <h4>Is it harmless to cats and dogs?</h4>
+                            <p id="harmless" class="modal-harmless"></p>
+                            </div>
                         </div>
+                        
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
@@ -85,7 +90,6 @@
         
         <script type="text/javascript">
             window.addEventListener('load', () =>{
-                fetch()
                 const form = document.querySelector('#new-plant-form');
                 const list_el = document.querySelector('#plants');
                 fetch(`/api/v1/userAplants`, {
@@ -109,7 +113,8 @@
                                         data-plant-taxonomygenus="${data[j].genus}"
                                         data-plant-taxonomykingdom="${data[j].kingdom}"
                                         data-plant-taxonomyorder="${data[j].orderr}"
-                                        data-plant-taxonomyphylum="${data[j].phylum}">${data[j].name}</a>
+                                        data-plant-taxonomyphylum="${data[j].phylum}"
+                                        data-plant-harmless="${data[j].harmless}">${data[j].name}</a>
                                         <img class="plant-image" src="${data[j].image}" align="center">
                                         <button type="button" id="delete-button" class="delete-button" data-plant-name="${data[j].name}">Delete</button>`;
                         list_el.appendChild(child);
@@ -160,7 +165,8 @@
                                       genus: data.genus,
                                       kingdom: data.kingdom,
                                       orderr: data.orderr,
-                                      phylum: data.phylum
+                                      phylum: data.phylum,
+                                      harmless: data.harmless
                                     };
                                     return fetch('/api/v1/userAplants', {
                                       method: 'POST',
@@ -215,6 +221,7 @@
                     const plantTaxonomy3 = button.data('plant-taxonomykingdom')
                     const plantTaxonomy4 = button.data('plant-taxonomyorder')
                     const plantTaxonomy5 = button.data('plant-taxonomyphylum')
+                    const plantHarmless = button.data('plant-harmless')
                     // Update the modal's content
                     const modal = $(this)
                     modal.find('.modal-title').text(plantName)
@@ -226,6 +233,19 @@
                     modal.find('.modal-taxonomy3').text("Kingdom: "+plantTaxonomy3)
                     modal.find('.modal-taxonomy4').text("Order: "+plantTaxonomy4)
                     modal.find('.modal-taxonomy4').text("Phylum: "+plantTaxonomy5)
+                    modal.find('.modal-harmless').text(plantHarmless)
+
+                    const alertDiv = document.querySelector('.modal-alert');
+                    if (plantHarmless == "Yes"){
+                        alertDiv.style.backgroundColor = "#83bf21";
+                        alertDiv.style.borderRadius = "5px";
+                        alertDiv.style.textAlign = "center";
+                    }
+                    else{
+                        alertDiv.style.backgroundColor = "rgb(210, 99, 99)";
+                        alertDiv.style.borderRadius = "5px";
+                        alertDiv.style.textAlign = "center";
+                    }
             });
             
         </script>

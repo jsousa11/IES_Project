@@ -52,8 +52,11 @@
                         <p id="kingdom" class="modal-taxonomy3"></p>
                         <p id="orderr" class="modal-taxonomy4"></p>
                         <p id="phylum" class="modal-taxonomy5"></p>
-                        <h2>Is it harmless to cats and dogs?</h2>
-                        <p class="modal-harmless"></p>
+                        <div class="modal-alert">
+                          <h4>Is it harmless to cats and dogs?</h4>
+                          <p id="harmless" class="modal-harmless"></p>
+                        </div>
+            
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -146,23 +149,31 @@
                     // Update the modal's content
                     const animalsplants = ["Allium sativum","Allium ampeloprasum","Alocacia spp.","Prunus ","Anthurium scherzeranum","Begonia spp.","Rhododendron spp","Aloe vera","Begonia spp.","Portulaca oleracea ","Euphorbia","Caladium hortulanum ","Kalanchoe spp","Allium cepa","Allium schoenoprasum","Prunus ","Cycas revoluta","Dieffenbachia","Zantedeschia aethiopica","Euphorbia","Viola","Tulipa spp.","Lycopersicon spp","Capsicum","Chrysanthemum","Malus","Citrus","Hydrangea arborescens"];
                     var plantHarmless = "Yes"
-                                                if (animalsplants.includes(plantCientificName)){
+                    const alertDiv = document.querySelector('.modal-alert');
+
+                    if (animalsplants.includes(plantCientificName)){
                       console.log('entrou?:', plantCientificName);
                       var plantHarmless = "No"
+                      alertDiv.style.backgroundColor = "rgb(210, 99, 99)";
+                      alertDiv.style.borderRadius = "5px";
+                      alertDiv.style.textAlign = "center";
                     }
                     else{
                       var plantHarmless = "Yes"
+                      alertDiv.style.backgroundColor = "#83bf21";
+                      alertDiv.style.borderRadius = "5px";
+                      alertDiv.style.textAlign = "center";
                     }
                     const modal = $(this)
                     modal.find('.modal-title').text(plantName)
                     modal.find('.modal-info').text(plantDescription)
                     modal.find('.modal-image').attr("src", plantImage)
-                    modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
-                    modal.find('.modal-taxonomyfamily').text(plantTaxonomyFamily)
-                    modal.find('.modal-taxonomygenus').text(plantTaxonomyGenus)
-                    modal.find('.modal-taxonomykingdom').text(plantTaxonomyKingdom)
-                    modal.find('.modal-taxonomyorder').text(plantTaxonomyOrder)
-                    modal.find('.modal-taxonomyphylum').text(plantTaxonomyPhylum)
+                    modal.find('.modal-taxonomyclass').text("Class: "+plantTaxonomyClass)
+                    modal.find('.modal-taxonomy1').text("Family: "+plantTaxonomy1)
+                    modal.find('.modal-taxonomy2').text("Genus: "+plantTaxonomy2)
+                    modal.find('.modal-taxonomy3').text("Kingdom: "+plantTaxonomy3)
+                    modal.find('.modal-taxonomy4').text("Order: "+plantTaxonomy4)
+                    modal.find('.modal-taxonomy5').text("Phylum: "+plantTaxonomy5)
                     modal.find('.modal-harmless').text(plantHarmless)
                   });
 
@@ -177,9 +188,10 @@
                     const kingdom = e.target.getAttribute("data-plant-taxonomykingdom");
                     const orderr = e.target.getAttribute("data-plant-taxonomyorder");
                     const phylum = e.target.getAttribute("data-plant-taxonomyphylum");
-                    const dados= { name,username, image, description, classs, family, genus, kingdom, orderr, phylum};
+                    const harmless = document.getElementById("harmless").innerText;
+                    const dados= { name,username, image, description, classs, family, genus, kingdom, orderr, phylum, harmless};
                     console.log(dados);
-                    fetch(`/api/v1/plantByName/${username}`)
+                    fetch(`/api/v1/plantByName/${name}`)
                     .then(response => response.json())
                     .then(exists =>{
                       // Verifique se o servidor retornou um resultado

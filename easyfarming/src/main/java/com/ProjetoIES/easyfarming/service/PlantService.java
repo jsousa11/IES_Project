@@ -49,6 +49,7 @@ public class PlantService {
         existingPlant.setKingdom(plant.getKingdom());
         existingPlant.setOrderr(plant.getOrderr());
         existingPlant.setPhylum(plant.getPhylum());
+        existingPlant.setHarmless(plant.getHarmless());
         return plantRepository.save(existingPlant);
     }
 }

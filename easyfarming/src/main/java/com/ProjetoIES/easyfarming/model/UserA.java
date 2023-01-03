@@ -21,11 +21,12 @@ public class UserA {
     private String kingdom;
     private String orderr;
     private String phylum;
+    private String harmless;
 
     public UserA(){        
     }
 
-    public UserA(String name,String username, String image, String description, String classs, String family, String genus, String kingdom, String orderr, String phylum){
+    public UserA(String name,String username, String image, String description, String classs, String family, String genus, String kingdom, String orderr, String phylum, String harmless){
         this.name = name;
         this.username = username;
         this.image = image;
@@ -36,6 +37,7 @@ public class UserA {
         this.kingdom = kingdom;
         this.orderr = orderr;
         this.phylum = phylum;
+        this.harmless = harmless;
     }
 
     @Id
@@ -125,6 +127,14 @@ public class UserA {
     }
     public void setPhylum(String phylum) {
         this.phylum = phylum;
+    }
+
+    @Column(name = "harmless", nullable = false)
+    public String getHarmless() {
+        return harmless;
+    }
+    public void setHarmless(String harmless) {
+        this.harmless = harmless;
     }
 
 

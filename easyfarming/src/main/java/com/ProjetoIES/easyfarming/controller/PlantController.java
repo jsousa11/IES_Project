@@ -49,4 +49,11 @@ public class PlantController {
     public Plant getPlantByName(@PathVariable String username) {
         return plantRepository.findByName(username);
     }
+
+    @DeleteMapping("/deleteAll")
+    public boolean deletePlants(){
+        List<Plant> plants = plantRepository.findAll();
+        plantRepository.deleteAll(plants);
+        return true;
+    }
 }
