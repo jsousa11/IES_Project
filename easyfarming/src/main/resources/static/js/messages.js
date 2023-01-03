@@ -17,6 +17,7 @@ window.addEventListener("load", async () => {
                     child.innerHTML = `<p>${data[count+i].message}</p>`;
                     list_message.appendChild(child);
                 }
+                //console.log(document.referrer)
 
             })
             .catch(error => {

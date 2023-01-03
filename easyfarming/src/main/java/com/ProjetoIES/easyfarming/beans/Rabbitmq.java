@@ -1,12 +1,10 @@
 package com.ProjetoIES.easyfarming.beans;
 
 import com.ProjetoIES.easyfarming.model.Messages;
-import com.ProjetoIES.easyfarming.repository.MessagesRepository;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
