@@ -41,11 +41,11 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h3>Image:</h3>
+                        <h2>Image:</h2>
                         <img id="image"class="modal-image"/>
-                        <h3>Description:</h3>
+                        <h2>Description:</h2>
                         <p id="description"class="modal-info"></p>
-                        <h3>Taxonomy:</h3>
+                        <h2>Taxonomy:</h2>
                         <p id="classs" class="modal-taxonomyclass"></p>
                         <p id="family" class="modal-taxonomy1"> </p>
                         <p id="genus" class="modal-taxonomy2"></p>
@@ -53,6 +53,7 @@
                         <p id="orderr" class="modal-taxonomy4"></p>
                         <p id="phylum" class="modal-taxonomy5"></p>
                       </div>
+                      <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -77,7 +78,7 @@
                         console.log(base64files)
 
                         const data = {
-                          api_key: "vKsWOAnsIVdoAIo66YpClu0aIfCMSwOBl9wLK78z2vxEi8XoVF",
+                          api_key: "c5IyNUvKQxPhxPnA2MNxgv7kbU2kY1j7CqULqHXEmRADmVvwRd",
                           images: base64files,
                           // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
                           modifiers: ["crops_fast", "similar_images"],
@@ -143,16 +144,17 @@
                     modal.find('.modal-title').text(plantName)
                     modal.find('.modal-info').text(plantDescription)
                     modal.find('.modal-image').attr("src", plantImage)
-                    modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
-                    modal.find('.modal-taxonomy1').text(plantTaxonomy1)
-                    modal.find('.modal-taxonomy2').text(plantTaxonomy2)
-                    modal.find('.modal-taxonomy3').text(plantTaxonomy3)
-                    modal.find('.modal-taxonomy4').text(plantTaxonomy4)
-                    modal.find('.modal-taxonomy4').text(plantTaxonomy5)
+                    modal.find('.modal-taxonomyclass').text("Class: "+plantTaxonomyClass)
+                    modal.find('.modal-taxonomy1').text("Family: "+plantTaxonomy1)
+                    modal.find('.modal-taxonomy2').text("Genus: "+plantTaxonomy2)
+                    modal.find('.modal-taxonomy3').text("Kingdom: "+plantTaxonomy3)
+                    modal.find('.modal-taxonomy4').text("Order: "+plantTaxonomy4)
+                    modal.find('.modal-taxonomy4').text("Phylum: "+plantTaxonomy5)
                   });
 
                   document.getElementById("resultados").addEventListener("click", function(e){
-                    const name = e.target.getAttribute("data-plant-name").replace(/\s/g, '');
+                    const name = e.target.getAttribute("data-plant-name");
+                    const username = e.target.getAttribute("data-plant-name").replace(/\s/g, '');
                     const description = e.target.getAttribute("data-plant-description").substring(0, 200);
                     const image = e.target.getAttribute("data-plant-image");
                     const classs = e.target.getAttribute("data-plant-taxonomyclass");
@@ -161,9 +163,9 @@
                     const kingdom = e.target.getAttribute("data-plant-taxonomykingdom");
                     const orderr = e.target.getAttribute("data-plant-taxonomyorder");
                     const phylum = e.target.getAttribute("data-plant-taxonomyphylum");
-                    const dados= { name,image, description, classs, family, genus, kingdom, orderr, phylum};
+                    const dados= { name,username, image, description, classs, family, genus, kingdom, orderr, phylum};
                     console.log(dados);
-                    fetch(`/api/v1/plantByName/${name}`)
+                    fetch(`/api/v1/plantByName/${username}`)
                     .then(response => response.json())
                     .then(exists =>{
                       // Verifique se o servidor retornou um resultado

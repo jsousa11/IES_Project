@@ -1,4 +1,4 @@
-package com.ProjetoIES.easyfarming.model;   
+package com.ProjetoIES.easyfarming.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "plants")
-public class Plant{
+@Table(name = "UserP")
+public class UserP {
     private long id;
     private String username;
     private String name;
@@ -22,10 +22,10 @@ public class Plant{
     private String orderr;
     private String phylum;
 
-    public Plant(){        
+    public UserP(){        
     }
 
-    public Plant(String name,String username, String image, String description, String classs, String family, String genus, String kingdom, String orderr, String phylum){
+    public UserP(String name,String username, String image, String description, String classs, String family, String genus, String kingdom, String orderr, String phylum){
         this.name = name;
         this.username = username;
         this.image = image;

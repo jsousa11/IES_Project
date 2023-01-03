@@ -24,8 +24,11 @@ public class EasyfarmingApplication {
             // Crie a consulta para apagar a tabela
             Statement statement = connection.createStatement();
 
+            //String query1 = "ALTER TABLE plants ADD COLUMN username VARCHAR(200);";
+            //statement.execute(query1);
+
             // Crie a consulta para listar as tabelas
-            String query = "SHOW TABLES";
+            String query = "SHOW TABLES;";
 
             // Execute a consulta
             ResultSet resultSet = statement.executeQuery(query);

@@ -6,8 +6,11 @@
     <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
     <script src= "js/date.js" defer> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta nome="viewport" content=" witdth= device-width, initial-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
@@ -43,70 +46,187 @@
     </div>
     <div class="user-boxes">
         <h2>Increase the garden...</h2>
-        <form>
-            <input type="file" multiple />
-            <button type="button">OK</button>
+        <form id="new-plant-form" class="plant-form">
+            <input type="text" name="new-plant-input" id="new-plant-input" placeholder="Name a plant!"/>
+            <input type="submit" id="new-plant-input" value="Add Plant"/>
         </form>
-    </div>
-    <div class="info-tasks">
-        <ul id="resultados"></ul>
+        <div class="plant-list">
+           <h1 class="h1-upload">Your plants:</h1> 
+           <ul id="plants"></ul>
+           <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                          <h2 class="modal-title" id="exampleModalLongTitle"></h2>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <h2>Image:</h2>
+                          <img id="image"class="modal-image"/>
+                          <h2>Description:</h2>
+                          <p id="description"class="modal-info"></p>
+                          <h2>Taxonomy:</h2>
+                          <p id="classs" class="modal-taxonomyclass"></p>
+                          <p id="family" class="modal-taxonomy1"> </p>
+                          <p id="genus" class="modal-taxonomy2"></p>
+                          <p id="kingdom" class="modal-taxonomy3"></p>
+                          <p id="orderr" class="modal-taxonomy4"></p>
+                          <p id="phylum" class="modal-taxonomy5"></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+        
         <script type="text/javascript">
-          
-            document.querySelector('button').onclick = function sendIdentification() {
-                const files = [...document.querySelector('input[type=file]').files];
-                const promises = files.map((file) => {
-                  return new Promise((resolve, reject) => {
-                      const reader = new FileReader();
-                      reader.onload = (event) => {
-                        const res = event.target.result;
-                        console.log(res);
-                        resolve(res);
-                      }
-                      reader.readAsDataURL(file)
-                  })
-                })
-                
-                Promise.all(promises).then((base64files) => {
-                  console.log(base64files)
-                        
-                  const data = {
-                    api_key: "p9zvCLwZ1BWIfO9DYgszYYB1H1YKPKm9ygbQ3KSdbosSWn16FT",
-                    images: base64files,
-                    // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
-                    modifiers: ["crops_fast", "similar_images"],
-                    plant_language: "en",
-                    // plant details docs: https://github.com/flowerchecker/Plant-id-API/wiki/Plant-details
-                    plant_details: ["common_names",
-                                    "url",
-                                    "name_authority",
-                                    "wiki_description",
-                                    "taxonomy",
-                                    "synonyms"],
-                  };
-                  
-                  fetch('https://api.plant.id/v2/identify', {
-                    method: 'POST',
+            window.addEventListener('load', () =>{
+                fetch()
+                const form = document.querySelector('#new-plant-form');
+                const list_el = document.querySelector('#plants');
+                fetch(`/api/v1/userAplants`, {
+                    method: 'GET',
                     headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                    console.log('Success:', data);
-                    res = document.getElementById("resultados");
-                    for (let i = 0; i < data["suggestions"].length; i++) {
-                        child = document.createElement("li");
-                        child.innerHTML = `<a class="a-results" href="info/${data["suggestions"][i]["plant_name"].toLowerCase()}">${data["suggestions"][i]["plant_name"]}</a>`;
-                        res.appendChild(child);
+                        'Content-Type': 'application/json'
                     }
-                    })
-                  .catch((error) => {
-                    console.error('Error:', error);
-                  });
                 })
-              
-            };
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    for(let j= 0; j<data.length; j++){
+                        child = document.createElement('div');
+                        child.className = 'plant-boxes';
+                        child.innerHTML = `<a class="a-plants" data-toggle="modal" data-target="#exampleModalLong" 
+                                        data-plant-name="${data[j].name}" 
+                                        data-plant-description="${data[j].description}"
+                                        data-plant-image="${data[j].image}"
+                                        data-plant-taxonomyclass="${data[j].classs}"
+                                        data-plant-taxonomyfamily="${data[j].family}"
+                                        data-plant-taxonomygenus="${data[j].genus}"
+                                        data-plant-taxonomykingdom="${data[j].kingdom}"
+                                        data-plant-taxonomyorder="${data[j].orderr}"
+                                        data-plant-taxonomyphylum="${data[j].phylum}">${data[j].name}</a>
+                                        <img class="plant-image" src="${data[j].image}" align="center">
+                                        <button type="button" id="delete-button" class="delete-button" data-plant-name="${data[j].name}">Delete</button>`;
+                        list_el.appendChild(child);
+                        const deleteButton = child.querySelectorAll('#delete-button');
+                    deleteButton.forEach(button => {
+                        const plantName = button.getAttribute('data-plant-name');
+                        button.addEventListener('click', () => deletePlant(plantName));
+                    }); 
+                    }
+                })
+
+                form.addEventListener('submit', function doSomething(e){
+                    e.preventDefault();
+                    const input = document.querySelector('#new-plant-input');
+                    console.log(input.value);
+                    fetch(`/api/v1/plantByName/${input.value}`)
+                        .then(response => response.json())
+                        .then(exists =>{
+                        // Verifique se o servidor retornou um resultado
+                        if (exists) {
+                            // O usuário já existe na base de dados
+                            console.log('A planta já existe na base de dados do criador');
+                            fetch(`api/v1/userAplantByName/${input.value}`)
+                            .then(response => response.json())
+                            .then(exists =>{
+                            //Verifica se a planta já existe na base de dados do usuário
+                            if(exists){
+                                console.log('A planta já existe na base de dados do usuário');
+                                
+                            }else{
+                                console.log('A planta não existe na base de dados do usuário');
+                                let info={};
+                                fetch(`/api/v1/plants/${input.value}`, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    info = {
+                                      name: data.name,
+                                      username: data.username,
+                                      description: data.description,
+                                      image: data.image,
+                                      classs: data.classs,
+                                      family: data.family,
+                                      genus: data.genus,
+                                      kingdom: data.kingdom,
+                                      orderr: data.orderr,
+                                      phylum: data.phylum
+                                    };
+                                    return fetch('/api/v1/userAplants', {
+                                      method: 'POST',
+                                      headers: {
+                                        'Content-Type': 'application/json'
+                                      },
+                                      body: JSON.stringify(info),
+                                      headers: {
+                                        'Content-Type': 'application/json'
+                                    }})
+                                    .then(()=>location.reload())
+                                    ;
+                                })
+
+                            }})
+                                
+                                
+                        } else {
+                            // O usuário não existe na base de dados
+                            console.log('A planta não existe na base de dados');
+                            const errorMessage = document.createElement('div');
+                            errorMessage.className = 'alert';
+                            errorMessage.innerHTML = 'Plant not found. <a href="/upload">Help us increase our database!</a>';
+                            document.body.appendChild(errorMessage);
+
+                        }
+                        })
+                        .catch(function (error) {
+                        console.error('Erro ao verificar a planta:', error);
+                        });
+                });
+                function deletePlant(plantName){
+                    console.log(plantName);
+                    fetch(`/api/v1/deletePlantA/${plantName}`, {
+                      method: 'DELETE',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    })
+                    .then(()=>location.reload())
+                }
+            });
+
+            $('#exampleModalLong').on('show.bs.modal', function (event) {
+                    const button = $(event.relatedTarget) // Button that triggered the modal
+                    const plantName = button.data('plant-name') // Extract info from data-* attributes
+                    const plantDescription = button.data('plant-description')
+                    const plantImage = button.data('plant-image')
+                    const plantTaxonomyClass = button.data('plant-taxonomyclass')
+                    const plantTaxonomy1 = button.data('plant-taxonomyfamily')
+                    const plantTaxonomy2 = button.data('plant-taxonomygenus')
+                    const plantTaxonomy3 = button.data('plant-taxonomykingdom')
+                    const plantTaxonomy4 = button.data('plant-taxonomyorder')
+                    const plantTaxonomy5 = button.data('plant-taxonomyphylum')
+                    // Update the modal's content
+                    const modal = $(this)
+                    modal.find('.modal-title').text(plantName)
+                    modal.find('.modal-info').text(plantDescription)
+                    modal.find('.modal-image').attr("src", plantImage)
+                    modal.find('.modal-taxonomyclass').text("Class: "+plantTaxonomyClass)
+                    modal.find('.modal-taxonomy1').text("Family: "+plantTaxonomy1)
+                    modal.find('.modal-taxonomy2').text("Genus: "+plantTaxonomy2)
+                    modal.find('.modal-taxonomy3').text("Kingdom: "+plantTaxonomy3)
+                    modal.find('.modal-taxonomy4').text("Order: "+plantTaxonomy4)
+                    modal.find('.modal-taxonomy4').text("Phylum: "+plantTaxonomy5)
+            });
             
         </script>
     </div>

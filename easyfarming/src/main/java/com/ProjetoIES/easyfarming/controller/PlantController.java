@@ -40,8 +40,13 @@ public class PlantController {
         return plantRepository.save(plant);
     }
 
-    @GetMapping("/plantByName/{name}")
-    public boolean plantExists(@PathVariable String name) {
-        return plantRepository.existsByNameIgnoreCase(name);
+    @GetMapping("/plantByName/{username}")
+    public boolean plantExists(@PathVariable String username) {
+        return plantRepository.existsByNameIgnoreCase(username);
       }
+
+    @GetMapping("/plants/{username}")
+    public Plant getPlantByName(@PathVariable String username) {
+        return plantRepository.findByName(username);
+    }
 }

@@ -50,13 +50,14 @@ public class Controller1 {
         return "upload";
     }
 
+    @GetMapping("/premium")
+    public String premium() {
+        return "premium";
+    }
+
     @PostMapping("/upload")
     public String uploadPost() {
         return "upload";
     }
 
-    @GetMapping("/info/{plant}")
-    public String info(@PathVariable("plant") String plant) {
-        return plant;
-    }
 }
