@@ -30,7 +30,7 @@ ssh  ies@deti-ies-06.ua.pt
 ```
 
 2. De seguida inserir a password: ``` tiku9-zapy8 ```
-3. Navegar para o diretório ./home/Desktop/Project_IES
+3. Navegar para o diretório ./IES/Project_IES
 4. Depois é só correr o docker:
 
 ```
