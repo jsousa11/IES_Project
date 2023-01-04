@@ -31,7 +31,7 @@ public class PlantController {
     private PlantRepository plantRepository;
 
     @Autowired
-    private PlantService plantService;
+    private PlantService plantService;  
 
     @GetMapping("/plants")
     public List<Plant> getAllPlants() {

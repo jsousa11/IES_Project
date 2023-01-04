@@ -24,8 +24,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center">Premium Page</h1>
-            <p class="text-center">Thank you for helping us to make our site trustworthy!</p>
+            <h1 class="text-center">Premium Page<img src="assets/premium.png" height="100" width="100"></h1>
+            <p class="text-center">Thank you for helping us to make our site trustworthy! Your changes will be reviewed by the developers.</p>
         </div>
     </div>
     <div class="data">
@@ -75,9 +75,6 @@
                 </div>
               </div>
             </div>
-        </div>
-        <div>
-            <p>Para as alterações serem vistas, dar reload à página</p>
         </div>
   
     </div>
@@ -139,19 +136,6 @@
                 modal.find('.modal-harmless').val(plantHarmless)
                 
         });
-        
-            // Obter os valores dos campos de formulário
-            // document.getElementById("all-plants").addEventListener("click", function(e){
-            //     const name = e.target.getAttribute("data-plant-name");
-            //     const description = e.target.getAttribute("data-plant-description");
-            //     const image = e.target.getAttribute("data-plant-image");
-            //     const family = e.target.getAttribute("data-plant-taxonomyfamily");
-            //     const genus = e.target.getAttribute("data-plant-taxonomygenus");
-            //     const kingdom = e.target.getAttribute("data-plant-taxonomykingdom");
-            //     const orderr = e.target.getAttribute("data-plant-taxonomyorder");
-            //     const phylum = e.target.getAttribute("data-plant-taxonomyphylum");
-            //     const harmless = e.target.getAttribute("data-plant-harmless");
-            // });
             const updatePlant = () => {
                 const name1 = document.querySelector(".modal-title").innerHTML;
                 const description = document.querySelector(".modal-info").value;
@@ -177,6 +161,7 @@
               .then(response => response.json())
               .then(data => {
                 // Aqui pode colocar o código que deseja executar quando a atualização for bem-sucedida
+                window.location.reload();
               })
               .catch(error => {
                 // Aqui pode colocar o código que deseja executar em caso de erro

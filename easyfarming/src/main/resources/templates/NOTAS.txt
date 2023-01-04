@@ -11,5 +11,5 @@ Tarefas a fazer:
     -Fazer pull da parte do João --FEITO--
     
     -Fazer a documentação da API (tipo README)
-    -Pôr o simbolo de verificado(premium) na página do Pedro
-    -Dar update na base de dados do utilizadores(ainda não sei como fazer isso)
+    -Pôr o simbolo de verificado(premium) na página do Pedro --FEITO--
+    -Dar update na base de dados do utilizadores(ainda não sei como fazer isso, NEM VOU FAZER)

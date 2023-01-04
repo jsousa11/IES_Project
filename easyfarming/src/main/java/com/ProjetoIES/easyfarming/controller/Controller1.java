@@ -30,11 +30,6 @@ public class Controller1 {
         return "login";
     }
 
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
-    }
-
     @GetMapping("/userpageP")
     public String userpageP() {
         return "userpageP";
