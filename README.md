@@ -92,8 +92,8 @@ docker rm -f $(docker ps -aq)
 
 4. Observar os resultados Website http://localhost:8090/
 
-## Outra forma de correr a app
-Pode também utilizar o ficheiro run.sh para correr a app:
+## Another way to run the app
+You can use the file run.sh:
 ```
 ./run.sh
 ```
@@ -102,3 +102,4 @@ Pode também utilizar o ficheiro run.sh para correr a app:
 - To use __Pedro__ profile, do Login with the email "pedro@email.com" and password "the_farmer123"
 - To use __Ana__ profile, do Login with the email "ana@email.com" and password "aninha123"
 - To try the upload feature, click on the button "Try Now"
+- Because is your first time using the app, the tables of our database are empty. You can use de images in the folder "images" to test the upload feature, filling the database. Feel free to use your own images!
