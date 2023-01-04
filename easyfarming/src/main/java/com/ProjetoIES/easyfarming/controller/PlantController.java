@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ import com.ProjetoIES.easyfarming.service.PlantService;
 public class PlantController {
     @Autowired
     private PlantRepository plantRepository;
-    private PlantService plantService;
+
+    @Autowired
+    private PlantService plantService;  
 
     @GetMapping("/plants")
     public List<Plant> getAllPlants() {
@@ -40,8 +43,33 @@ public class PlantController {
         return plantRepository.save(plant);
     }
 
-    @GetMapping("/plantByName/{name}")
-    public boolean plantExists(@PathVariable String name) {
-        return plantRepository.existsByNameIgnoreCase(name);
+    @GetMapping("/plantByName/{username}")
+    public boolean plantExists(@PathVariable String username) {
+        return plantRepository.existsByNameIgnoreCase(username);
       }
+
+    @GetMapping("/plants/{username}")
+    public Plant getPlantByName(@PathVariable String username) {
+        return plantRepository.findByName(username);
+    }
+
+    @PutMapping("/updatePlant/{username}")
+    public Plant updatePlant(@PathVariable String username, @RequestBody Plant plantUpdates){
+        Plant plant = plantRepository.findByName(username);
+        plant.setDescription(plantUpdates.getDescription());
+        plant.setFamily(plantUpdates.getFamily());
+        plant.setGenus(plantUpdates.getGenus());
+        plant.setKingdom(plantUpdates.getKingdom());
+        plant.setOrderr(plantUpdates.getOrderr());
+        plant.setPhylum(plantUpdates.getPhylum());
+        plant.setHarmless(plantUpdates.getHarmless());
+        return plantRepository.save(plant);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public boolean deletePlants(){
+        List<Plant> plants = plantRepository.findAll();
+        plantRepository.deleteAll(plants);
+        return true;
+    }
 }

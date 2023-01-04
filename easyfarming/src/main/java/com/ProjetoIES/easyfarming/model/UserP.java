@@ -1,4 +1,4 @@
-package com.ProjetoIES.easyfarming.model;   
+package com.ProjetoIES.easyfarming.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "plants")
-public class Plant{
+@Table(name = "UserP")
+public class UserP {
     private long id;
     private String username;
     private String name;
@@ -23,10 +23,10 @@ public class Plant{
     private String phylum;
     private String harmless;
 
-    public Plant(){        
+    public UserP(){        
     }
 
-    public Plant(String name,String username, String image, String description, String classs, String family, String genus, String kingdom, String orderr, String phylum, String harmless){
+    public UserP(String name,String username, String image, String description, String classs, String family, String genus, String kingdom, String orderr, String phylum, String harmless){
         this.name = name;
         this.username = username;
         this.image = image;
@@ -136,7 +136,6 @@ public class Plant{
     public void setHarmless(String harmless) {
         this.harmless = harmless;
     }
-
 
 
     @Override

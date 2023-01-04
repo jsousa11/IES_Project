@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Easy Farming</title>
+    <link href= "css/style.css" rel="stylesheet"/>
+    <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta nome="viewport" content=" witdth= device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+<header>
+    <div class = "center">
+        <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
+        <div class="menu">
+            <a href="/userpageP.html" th:href="@{/userpageP}">Back to your page</a>
+        </div><!--menu-->
+    </div><!--center-->
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">Premium Page<img src="assets/premium.png" height="100" width="100"></h1>
+            <p class="text-center">Thank you for helping us to make our site trustworthy! Your changes will be reviewed by the developers.</p>
+        </div>
+    </div>
+    <div class="data">
+        <ul id="all-plants"></ul>
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="editModalLabel">Editar planta</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Conteúdo da modal aqui -->
+                    <h2>Image:</h2>
+                    <img id="image"class="modal-image"/>
+                    <h2>Description:</h2>
+                    <div class="form-group">
+                        <textarea type="text" class="modal-info" id="description1" value="description" rows="3" maxlength="200"></textarea>
+                    </div>
+                    <!--<h2>Description:</h2>
+                    <input type="text" id="description" class="modal-info"/>
+                    <p id="description"class="modal-info"></p> -->
+                    <h2>Taxonomy:</h2>
+                    <div class="form-group">
+                        <label for="class">Class:</label>
+                        <textarea type="text" class="modal-taxonomyclass" id="class" value="class" rows="1" maxlength="200"></textarea>
+                        <label for="family">Family:</label>
+                        <textarea type="text" class="modal-taxonomy1" id="family" value="family" rows="1" maxlength="200"></textarea>
+                        <label for="genus">Genus:</label>
+                        <textarea type="text" class="modal-taxonomy2" id="genus" value="genus" rows="1" maxlength="200"></textarea>
+                        <label for="kingdom">Kingdom:</label>
+                        <textarea type="text" class="modal-taxonomy3" id="kingdom" value="kingdom" rows="1" maxlength="200"></textarea>
+                        <label for="orderr">Order:</label>
+                        <textarea type="text" class="modal-taxonomy4" id="orderr" value="orderr" rows="1" maxlength="200"></textarea>
+                        <label for="phylum">Phylum:</label>
+                        <textarea type="text" class="modal-taxonomy5" id="phylum" value="phylum" rows="1" maxlength="200"></textarea>
+                        <label for="harmless">Harmless:</label>
+                        <textarea type="text" class="modal-harmless" id="harmless" value="harmless" rows="1" maxlength="200"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="edit-button">Save changes</button>
+                </div>
+              </div>
+            </div>
+        </div>
+  
+    </div>
+    <script type="text/javascript">
+        window.addEventListener('load', () =>{
+            const list_el = document.getElementById('all-plants');
+            fetch(`/api/v1/plants`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                for(let j= 0; j<data.length; j++){
+                    child = document.createElement('div');
+                    child.className = 'plant-boxes';
+                    child.innerHTML = `<a class="a-plants">${data[j].name}</a>
+                                    <img class="plant-image" src="${data[j].image}" align="center">
+                                    <button type="button" class="edit-button" data-toggle="modal" data-target="#editModal"
+                                    data-plant-name="${data[j].name}" 
+                                    data-plant-description="${data[j].description}"
+                                    data-plant-image="${data[j].image}"
+                                    data-plant-taxonomyclass="${data[j].classs}"
+                                    data-plant-taxonomyfamily="${data[j].family}"
+                                    data-plant-taxonomygenus="${data[j].genus}"
+                                    data-plant-taxonomykingdom="${data[j].kingdom}"
+                                    data-plant-taxonomyorder="${data[j].orderr}"
+                                    data-plant-taxonomyphylum="${data[j].phylum}"
+                                    data-plant-harmless="${data[j].harmless}">Edit</button>`;
+                    list_el.appendChild(child);
+                }
+            });
+        });
+        $('#editModal').on('show.bs.modal', function (event) {
+                const button = $(event.relatedTarget) // Button that triggered the modal
+                const plantName = button.data('plant-name') // Extract info from data-* attributes
+                const plantDescription = button.data('plant-description')
+                const plantImage = button.data('plant-image')
+                const plantTaxonomyClass = button.data('plant-taxonomyclass')
+                const plantTaxonomy1 = button.data('plant-taxonomyfamily')
+                const plantTaxonomy2 = button.data('plant-taxonomygenus')
+                const plantTaxonomy3 = button.data('plant-taxonomykingdom')
+                const plantTaxonomy4 = button.data('plant-taxonomyorder')
+                const plantTaxonomy5 = button.data('plant-taxonomyphylum')
+                const plantHarmless = button.data('plant-harmless')
+                // Update the modal's content
+                const modal = $(this)
+                modal.find('.modal-title').text(plantName)
+                modal.find('.modal-info').val(plantDescription)
+                modal.find('.modal-image').attr("src", plantImage)
+                modal.find('.modal-taxonomyclass').val(plantTaxonomyClass)
+                modal.find('.modal-taxonomy1').val(plantTaxonomy1)
+                modal.find('.modal-taxonomy2').val(plantTaxonomy2)
+                modal.find('.modal-taxonomy3').val(plantTaxonomy3)
+                modal.find('.modal-taxonomy4').val(plantTaxonomy4)
+                modal.find('.modal-taxonomy5').val(plantTaxonomy5)
+                modal.find('.modal-harmless').val(plantHarmless)
+                
+        });
+            const updatePlant = () => {
+                const name1 = document.querySelector(".modal-title").innerHTML;
+                const description = document.querySelector(".modal-info").value;
+                const family = document.querySelector(".modal-taxonomy1").value;
+                const genus = document.querySelector(".modal-taxonomy2").value;
+                const kingdom = document.querySelector(".modal-taxonomy3").value;
+                const orderr = document.querySelector(".modal-taxonomy4").value;
+                const phylum = document.querySelector(".modal-taxonomy5").value;
+                const harmless = document.querySelector(".modal-harmless").value;
+                console.log(name1);
+                console.log(family);
+            // Criar um objeto Plant com os valores dos campos de formulário
+            const plantUpdates = {description, family, genus, kingdom, orderr, phylum, harmless };
+            console.log(plantUpdates);
+            // Enviar uma solicitação POST para o controlador de atualização de plantas, passando o objeto Plant como corpo da solicitação
+            fetch(`/api/v1/updatePlant/${name1}`, {
+              method: "PUT",
+              body: JSON.stringify(plantUpdates),
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                // Aqui pode colocar o código que deseja executar quando a atualização for bem-sucedida
+                window.location.reload();
+              })
+              .catch(error => {
+                // Aqui pode colocar o código que deseja executar em caso de erro
+              });
+        }
+        
+
+        // Adicionar um ouvinte de clique ao botão de atualização
+        const updateButton = document.querySelector("#edit-button");
+        updateButton.addEventListener("click", updatePlant);
+    </script>
+</div>
+</body>
+</html>

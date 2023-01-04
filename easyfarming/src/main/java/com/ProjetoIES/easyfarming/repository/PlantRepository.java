@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface PlantRepository extends JpaRepository<Plant, Long> {
-    Plant findByName(String name);
-    boolean existsByNameIgnoreCase(String name);
+    Plant findByName(String username);
+    boolean existsByNameIgnoreCase(String username);
 }

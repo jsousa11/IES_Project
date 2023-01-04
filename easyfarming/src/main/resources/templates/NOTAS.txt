@@ -1,0 +1,15 @@
+Tarefas a fazer:
+    -Botão DELETE funcional --FEITO--
+    -Pôr a outra página igual a esta ---FEITO----
+    -Página premium para o Pedro(pode alterar os dados da base de dados principal) --FEITO--
+    -Fazer endpoint para o update de dados --FEITO--
+    -Botão "Save changes" funcional --FEITO--
+    -Melhorar a mensagem de erro ---NÃO ACHEI NECESSÁRIO---
+    -Fazer a base de dados do Pedro ---FEITO---
+    -Pôr tudo responsivo --FEITO, MAS PODE MELHORAR--
+    -Pôr mini imagens em cada planta --FEITO--
+    -Fazer pull da parte do João --FEITO--
+    
+    -Fazer a documentação da API (tipo README)
+    -Pôr o simbolo de verificado(premium) na página do Pedro --FEITO--
+    -Dar update na base de dados do utilizadores(ainda não sei como fazer isso, NEM VOU FAZER)

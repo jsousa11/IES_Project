@@ -40,8 +40,6 @@ public class PlantService {
     
     public Plant updatePlant(Plant plant) {
         Plant existingPlant = plantRepository.findById(plant.getId()).orElse(null);
-        existingPlant.setName(plant.getName());
-        existingPlant.setImage(plant.getImage());
         existingPlant.setDescription(plant.getDescription());
         existingPlant.setClasss(plant.getClasss());
         existingPlant.setFamily(plant.getFamily());
@@ -49,6 +47,7 @@ public class PlantService {
         existingPlant.setKingdom(plant.getKingdom());
         existingPlant.setOrderr(plant.getOrderr());
         existingPlant.setPhylum(plant.getPhylum());
+        existingPlant.setHarmless(plant.getHarmless());
         return plantRepository.save(existingPlant);
     }
 }

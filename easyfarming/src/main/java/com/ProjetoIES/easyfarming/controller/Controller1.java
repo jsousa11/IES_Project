@@ -22,11 +22,6 @@ public class Controller1 {
         return "login";
     }
 
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
-    }
-
     @GetMapping("/userpageP")
     public String userpageP() {
         return "userpageP";
@@ -42,6 +37,11 @@ public class Controller1 {
         return "upload";
     }
 
+    @GetMapping("/premium")
+    public String premium() {
+        return "premium";
+    }
+
     @PostMapping("/upload")
     public String uploadPost() {
         return "upload";
@@ -52,8 +52,5 @@ public class Controller1 {
         return "forum";
     }
 
-    @GetMapping("/info/{plant}")
-    public String info(@PathVariable("plant") String plant) {
-        return plant;
-    }
+
 }

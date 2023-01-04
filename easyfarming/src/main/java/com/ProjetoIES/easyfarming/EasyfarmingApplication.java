@@ -24,16 +24,22 @@ public class EasyfarmingApplication {
             // Crie a consulta para apagar a tabela
             Statement statement = connection.createStatement();
 
-            // Crie a consulta para listar as tabelas
-            String query = "SHOW TABLES";
+            //String query1 = "ALTER TABLE plants ADD COLUMN username VARCHAR(200);";
+            //statement.execute(query1);
 
-            // Execute a consulta
-            ResultSet resultSet = statement.executeQuery(query);
+            //// Crie a consulta para listar as tabelas
+            //String query1 = "ALTER TABLE userp ADD harmless VARCHAR(3);";
+//
+            //// Execute a consulta
+            //statement.executeUpdate(query1);
+
+            String query2 = "SELECT column_name FROM information_schema.columns WHERE table_name='userp';";
+            ResultSet resultSet2 = statement.executeQuery(query2);
 
             // Exiba a lista de tabelas
-            System.out.println("Tabelas:");
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1));
+            System.out.println("Colunas:");
+            while (resultSet2.next()) {
+                System.out.println(resultSet2.getString(1));
             }
 
             // Feche o statement e a conexão

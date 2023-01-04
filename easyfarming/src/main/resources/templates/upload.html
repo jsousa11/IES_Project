@@ -41,20 +41,24 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <h3>Image:</h3>
+                        <h2>Image:</h2>
                         <img id="image"class="modal-image"/>
-                        <h3>Description:</h3>
+                        <h2>Description:</h2>
                         <p id="description"class="modal-info"></p>
-                        <h3>Taxonomy:</h3>
-                        <p class="modal-taxonomyclass">Class: </p>
-                        <p class="modal-taxonomyfamily">Family: </p>
-                        <p class="modal-taxonomygenus">Genus: </p>
-                        <p class="modal-taxonomykingdom">Kingdom: </p>
-                        <p class="modal-taxonomyorder">Order: </p>
-                        <p class="modal-taxonomyphylum">Phylum: </p>
-                        <h3>Is it harmless to cats and dogs?</h3>
-                        <p class="modal-harmless"></p>
+                        <h2>Taxonomy:</h2>
+                        <p id="classs" class="modal-taxonomyclass"></p>
+                        <p id="family" class="modal-taxonomy1"> </p>
+                        <p id="genus" class="modal-taxonomy2"></p>
+                        <p id="kingdom" class="modal-taxonomy3"></p>
+                        <p id="orderr" class="modal-taxonomy4"></p>
+                        <p id="phylum" class="modal-taxonomy5"></p>
+                        <div class="modal-alert">
+                          <h4>Is it harmless to cats and dogs?</h4>
+                          <p id="harmless" class="modal-harmless"></p>
+                        </div>
+            
                       </div>
+                      <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -79,7 +83,7 @@
                         console.log(base64files)
 
                         const data = {
-                          api_key: "vKsWOAnsIVdoAIo66YpClu0aIfCMSwOBl9wLK78z2vxEi8XoVF",
+                          api_key: "c5IyNUvKQxPhxPnA2MNxgv7kbU2kY1j7CqULqHXEmRADmVvwRd",
                           images: base64files,
                           // modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers
                           modifiers: ["crops_fast", "similar_images"],
@@ -137,37 +141,45 @@
                     const plantDescription = button.data('plant-description')
                     const plantImage = button.data('plant-image')
                     const plantTaxonomyClass = button.data('plant-taxonomyclass')
-                    const plantTaxonomyFamily = button.data('plant-taxonomyfamily')
-                    const plantTaxonomyGenus = button.data('plant-taxonomygenus')
-                    const plantTaxonomyKingdom = button.data('plant-taxonomykingdom')
-                    const plantTaxonomyOrder = button.data('plant-taxonomyorder')
-                    const plantTaxonomyPhylum = button.data('plant-taxonomyphylum')
+                    const plantTaxonomy1 = button.data('plant-taxonomyfamily')
+                    const plantTaxonomy2 = button.data('plant-taxonomygenus')
+                    const plantTaxonomy3 = button.data('plant-taxonomykingdom')
+                    const plantTaxonomy4 = button.data('plant-taxonomyorder')
+                    const plantTaxonomy5 = button.data('plant-taxonomyphylum')
                     // Update the modal's content
-                    const animalsplants = ["Allium sativum","Allium ampeloprasum","Alocacia spp.","Prunus ","Anthurium scherzeranum","Begonia spp.","Rhododendron spp","Aloe vera","Begonia spp.","Portulaca oleracea ","Euphorbia","Caladium hortulanum ","Kalanchoe spp","Allium cepa","Allium schoenoprasum","Prunus ","Cycas revoluta","Dieffenbachia","Zantedeschia aethiopica","Euphorbia","Viola","Tulipa spp.","Lycopersicon spp","Capsicum","Chrysanthemum","Malus","Citrus","Hydrangea arborescens"];
+                    const animalsplants = ["Allium sativum","Allium ampeloprasum","Alocacia spp.","Prunus","Anthurium scherzeranum","Begonia spp.","Rhododendron spp","Aloe vera","Begonia spp.","Portulaca oleracea","Euphorbia","Caladium hortulanum","Kalanchoe spp","Allium cepa","Allium schoenoprasum","Prunus","Cycas revoluta","Dieffenbachia","Zantedeschia aethiopica","Euphorbia","Viola","Tulipa spp.","Lycopersicon spp","Capsicum","Chrysanthemum","Malus","Citrus","Hydrangea arborescens"];
                     var plantHarmless = "Yes"
-                    
+                    const alertDiv = document.querySelector('.modal-alert');
+
                     if (animalsplants.includes(plantCientificName)){
                       console.log('entrou?:', plantCientificName);
                       var plantHarmless = "No"
+                      alertDiv.style.backgroundColor = "rgb(210, 99, 99)";
+                      alertDiv.style.borderRadius = "5px";
+                      alertDiv.style.textAlign = "center";
                     }
                     else{
                       var plantHarmless = "Yes"
+                      alertDiv.style.backgroundColor = "#83bf21";
+                      alertDiv.style.borderRadius = "5px";
+                      alertDiv.style.textAlign = "center";
                     }
                     const modal = $(this)
                     modal.find('.modal-title').text(plantName)
-                    modal.find('.modal-info').text(plantDescription)
+                    modal.find('.modal-info').text(plantDescription.substring(0, 200))
                     modal.find('.modal-image').attr("src", plantImage)
-                    modal.find('.modal-taxonomyclass').text(plantTaxonomyClass)
-                    modal.find('.modal-taxonomyfamily').text(plantTaxonomyFamily)
-                    modal.find('.modal-taxonomygenus').text(plantTaxonomyGenus)
-                    modal.find('.modal-taxonomykingdom').text(plantTaxonomyKingdom)
-                    modal.find('.modal-taxonomyorder').text(plantTaxonomyOrder)
-                    modal.find('.modal-taxonomyphylum').text(plantTaxonomyPhylum)
+                    modal.find('.modal-taxonomyclass').text("Class: "+plantTaxonomyClass)
+                    modal.find('.modal-taxonomy1').text("Family: "+plantTaxonomy1)
+                    modal.find('.modal-taxonomy2').text("Genus: "+plantTaxonomy2)
+                    modal.find('.modal-taxonomy3').text("Kingdom: "+plantTaxonomy3)
+                    modal.find('.modal-taxonomy4').text("Order: "+plantTaxonomy4)
+                    modal.find('.modal-taxonomy5').text("Phylum: "+plantTaxonomy5)
                     modal.find('.modal-harmless').text(plantHarmless)
                   });
 
                   document.getElementById("resultados").addEventListener("click", function(e){
-                    const name = e.target.getAttribute("data-plant-name").replace(/\s/g, '');
+                    const name = e.target.getAttribute("data-plant-name");
+                    const username = e.target.getAttribute("data-plant-name").replace(/\s/g, '');
                     const description = e.target.getAttribute("data-plant-description").substring(0, 200);
                     const image = e.target.getAttribute("data-plant-image");
                     const classs = e.target.getAttribute("data-plant-taxonomyclass");
@@ -176,7 +188,18 @@
                     const kingdom = e.target.getAttribute("data-plant-taxonomykingdom");
                     const orderr = e.target.getAttribute("data-plant-taxonomyorder");
                     const phylum = e.target.getAttribute("data-plant-taxonomyphylum");
-                    const dados= { name,image, description, classs, family, genus, kingdom, orderr, phylum};
+                    const cientificname = e.target.getAttribute("data-plant-cientificname");
+                    const animalsplants = ["Allium sativum","Allium ampeloprasum","Alocacia spp.","Prunus","Anthurium scherzeranum","Begonia spp.","Rhododendron spp","Aloe vera","Begonia spp.","Portulaca oleracea","Euphorbia","Caladium hortulanum","Kalanchoe spp","Allium cepa","Allium schoenoprasum","Prunus","Cycas revoluta","Dieffenbachia","Zantedeschia aethiopica","Euphorbia","Viola","Tulipa spp.","Lycopersicon spp","Capsicum","Chrysanthemum","Malus","Citrus","Hydrangea arborescens"];
+                    var harmless = "Yes"
+
+                    if (animalsplants.includes(cientificname)){
+                      console.log('entrou?:', cientificname);
+                      var harmless = "No"
+                    }
+                    else{
+                      var harmless = "Yes"
+                    }
+                    const dados= { name,username, image, description, classs, family, genus, kingdom, orderr, phylum, harmless};
                     console.log(dados);
                     fetch(`/api/v1/plantByName/${name}`)
                     .then(response => response.json())
