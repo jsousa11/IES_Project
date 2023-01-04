@@ -30,7 +30,7 @@ public class ForumService {
 
         try {
             Forum message = mapper.readValue(jsonMessage, Forum.class);
-            saveForumMessage(new Forum(message.getUsername(), message.getQuestion(), message.getAnswer1(), message.getAnswer2(), message.getAnswer3(), message.getAnswer4(), message.getAnswer5()));
+            saveForumMessage(new Forum(message.getUsername(), message.getQuestion(), message.getUsername1(), message.getAnswer1(), message.getUsername2(), message.getAnswer2(), message.getUsername3(), message.getAnswer3(), message.getUsername4(), message.getAnswer4(), message.getUsername5(), message.getAnswer5()));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
