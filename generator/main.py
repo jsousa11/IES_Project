@@ -80,14 +80,15 @@ class Forum_Generator:
 
         adjectives = ['happy', 'strong', 'big', 'small', 'fast', 'slow']
         nouns = ['flower', 'dog', 'car', 'bike', 'tree', 'river', 'sea', 'sun', 'moon', 'star', 'farmer']
+        usernames = []
 
-        adjective_index = random.randint(0, len(adjectives) - 1)
-        noun_index = random.randint(0, len(nouns) - 1)
-
-        adjective = adjectives[adjective_index]
-        noun = nouns[noun_index]
-
-        username = adjective + '_' + noun + '_' + str(random.randint(0, 1000))
+        for i in range(6):
+            adjective_index = random.randint(0, len(adjectives) - 1)
+            noun_index = random.randint(0, len(nouns) - 1)
+            adjective = adjectives[adjective_index]
+            noun = nouns[noun_index]
+            username = adjective + '_' + noun + '_' + str(random.randint(0, 1000))
+            usernames.append(username)
 
         intros = ['Hello!', 'Hi!', 'Hey!', 'Howdy!', 'Greetings!', 'Salutations!', 'What\'s up?!', 'What\'s new?!']
         plants = ['rose', 'tulip', 'daisy', 'orchid', 'sunflower', 'lily', 'daffodil', 'carnation', 'dandelion', 'iris', 'lavender', 'tomato', 'sweet potato', 'cucumber', 'bamboo', 'bearberry', 'cherry', 'cedar', 'cotton plant', 'brown daisy', 'eucaliptus', 'eytelia', 'fig', 'garlic', 'hogweed']
@@ -132,12 +133,17 @@ class Forum_Generator:
             list_answers.append(answer)
 
         forum = {
-            "username": username,
+            "username": usernames[0],
             "question": question,
+            "username1": usernames[1],
             "answer1": list_answers[0],
+            "username2": usernames[2],
             "answer2": list_answers[1],
+            "username3": usernames[3],
             "answer3": list_answers[2],
+            "username4": usernames[4],
             "answer4": list_answers[3],
+            "username5": usernames[5],
             "answer5": list_answers[4]
         }
 
