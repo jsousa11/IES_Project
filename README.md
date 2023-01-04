@@ -21,17 +21,17 @@ Report: https://docs.google.com/document/d/1XZqbB-mA_-0y-NWJ4Dap0eEtpzrNtgahLEfi
 
 Presentation: https://www.canva.com/design/DAFWD6LsCbc/jMYKfYPBi2eupubWetbiHQ/edit?utm_content=DAFWD6LsCbc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-## Correr a app na VM
+## Run the app on the VM
 
-1. Executar o comando, colocando o user da sua conta da UA
+1. Run the command, putting the user of your UA account
 
 ```
-ssh  ies@deti-ies-06.ua.pt
+ssh ies@deti-ies-06.ua.pt
 ```
 
-2. De seguida inserir a password: ``` tiku9-zapy8 ```
-3. Navegar para o diretório ./IES/Project_IES
-4. Depois é só correr o docker:
+2. Then enter the password: ``` tiku9-zapy8 ```
+3. Navigate to the ./IES/Project_IES directory
+4. Then just run docker:
 
 ```
 sudo docker-compose down -v
@@ -45,30 +45,30 @@ sudo docker-compose build
 sudo docker-compose up
 ```
 
-5. No browser se navegar no link: 192.168.160.227:8090/ irá conseguir ver o site a correr.
+5. In the browser, if you navigate to the link: 192.168.160.227:8090/ you will be able to see the site running.
 
-## Correr a app em localhost
-### Compilar o easyfarming
+## Run the app on localhost
+### Compile easyfarming
 
-1. Ao compilar o easyfarming, irá eliminar a pasta target caso exista, e gera-lo de novo com base no código do easyfarming, contendo este um ficheiro jar.
-2. Para isto basta correr o seguinte comando no diretório ./easyfarming:
+1. When compiling easyfarming, it will delete the target folder if it exists, and generate it again based on the easyfarming code, containing a jar file.
+2. To do this, just run the following command in the ./easyfarming directory:
 
 ```
 mvn clean package -DskipTests
 ```
 
-2. Compilar o docker
+2. Compile docker
 
-1. Antes de compilar o docker é necessario ter o ficheiro jar do easyfarming pretendido (para obte-lo basta executar os passos vistos anteriormmente)
-2. Para compilar o docker basta correr o seguinte comando no diretório raiz do projeto:
+1. Before compiling docker it is necessary to have the desired easyfarming jar file (to obtain it just follow the steps seen above)
+2. To compile docker, just run the following command in the project's root directory:
 
 ```
 docker-compose build
 ```
 
-### Executar o docker
+### Run docker
 
-1. Para correr o docker basta correr o seguinte comando no diretório raiz do projeto:
+1. To run docker just run the following command in the root directory of the project:
 
 ```
 docker-compose down -v
@@ -78,26 +78,29 @@ docker-compose down -v
 docker-compose up
 ```
 
-2. Para eliminar a base de dados:
+2. To delete the database:
 
 ```
 docker-compose down -v
 ```
 
-3. Para eliminar docker: 
+3. To delete docker:
 
 ```
 docker rm -f $(docker ps -aq)
 ```
 
-4. Observar os resultados Website http://localhost:8090/
+4. Observe the results Website http://localhost:8090/
 
 ## Another way to run the app
-You can use the file run.sh:
+1. You can use in one terminal the file run1.sh:
 ```
-./run.sh
+./run1.sh
 ```
-
+2. And then you use the file run2.sh in another terminal:
+```
+./run2.sh
+```
 ## Access to the website
 - To use __Pedro__ profile, do Login with the email "pedro@email.com" and password "the_farmer123"
 - To use __Ana__ profile, do Login with the email "ana@email.com" and password "aninha123"
