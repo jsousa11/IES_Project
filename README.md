@@ -21,22 +21,82 @@ Report: https://docs.google.com/document/d/1XZqbB-mA_-0y-NWJ4Dap0eEtpzrNtgahLEfi
 
 Presentation: https://www.canva.com/design/DAFWD6LsCbc/jMYKfYPBi2eupubWetbiHQ/edit?utm_content=DAFWD6LsCbc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-## Run the website locally
+## Correr a app na VM
 
-1.
-
-```
-mvn package
-```
-
-2.
+1. Executar o comando, colocando o user da sua conta da UA
 
 ```
-./mvnw spring-boot:run
+ssh user@deti-engsoft-12
 ```
 
-3.
-http://localhost:8090/
+2. De seguida ira ser pedido a password da conta da UA, inserir a password da conta da UA
+3. Navegar para o diretório ./home/evabartolomeu/IES_Project
+4. Depois é só correr o docker:
+
+```
+sudo docker-compose down -v
+```
+
+```
+sudo docker-compose build
+```
+
+```
+sudo docker-compose up
+```
+
+5. No browser se navegar no link: 192.168.160.221:6868/ irá conseguir ver o site a correr.
+
+## Correr a app em localhost
+### Compilar o easyfarming
+
+1. Ao compilar o easyfarming, irá eliminar a pasta target caso exista, e gera-lo de novo com base no código do easyfarming, contendo este um ficheiro jar.
+2. Para isto basta correr o seguinte comando no diretório ./easyfarming:
+
+```
+mvn clean package -DskipTests
+```
+
+2. Compilar o docker
+
+1. Antes de compilar o docker é necessario ter o ficheiro jar do easyfarming pretendido (para obte-lo basta executar os passos vistos anteriormmente)
+2. Para compilar o docker basta correr o seguinte comando no diretório raiz do projeto:
+
+```
+docker-compose build
+```
+
+### Executar o docker
+
+1. Para correr o docker basta correr o seguinte comando no diretório raiz do projeto:
+
+```
+docker-compose down -v
+```
+
+```
+docker-compose up
+```
+
+2. Para eliminar a base de dados:
+
+```
+docker-compose down -v
+```
+
+3. Para eliminar docker: 
+
+```
+docker rm -f $(docker ps -aq)
+```
+
+4. Observar os resultados Website http://localhost:8090/
+
+## Outra forma de correr a app
+Pode também utilizar o ficheiro run.sh para correr a app:
+```
+./run.sh
+```
 
 ## Access to the website
 - To use __Pedro__ profile, do Login with the email "pedro@email.com" and password "the_farmer123"
