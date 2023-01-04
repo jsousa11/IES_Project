@@ -26,11 +26,11 @@ Presentation: https://www.canva.com/design/DAFWD6LsCbc/jMYKfYPBi2eupubWetbiHQ/ed
 1. Executar o comando, colocando o user da sua conta da UA
 
 ```
-ssh user@deti-engsoft-12
+ssh  ies@deti-ies-06.ua.pt
 ```
 
-2. De seguida ira ser pedido a password da conta da UA, inserir a password da conta da UA
-3. Navegar para o diretório ./home/evabartolomeu/IES_Project
+2. De seguida inserir a password: ``` tiku9-zapy8 ```
+3. Navegar para o diretório ./home/Desktop/Project_IES
 4. Depois é só correr o docker:
 
 ```
@@ -45,7 +45,7 @@ sudo docker-compose build
 sudo docker-compose up
 ```
 
-5. No browser se navegar no link: 192.168.160.221:6868/ irá conseguir ver o site a correr.
+5. No browser se navegar no link: 192.168.160.227:8090/ irá conseguir ver o site a correr.
 
 ## Correr a app em localhost
 ### Compilar o easyfarming
