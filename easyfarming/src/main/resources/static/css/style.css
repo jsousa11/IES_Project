@@ -65,6 +65,14 @@ li{
     display: flex;
     justify-content: center;
     color: white;
+    left: 674px;
+    position: relative;
+}
+
+.message{
+    background: darkseagreen;
+    display: flex;
+    justify-content: center;
 }
 
 .plant-image{
@@ -515,6 +523,26 @@ p{
     width: -moz-available;
 }
 
+.messages{
+    position: relative;
+    float: left;
+    display: flex;
+    justify-content: center;
+    width: 498px;
+}
+
+.forumDiv{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2%;
+    background: silver;
+}
+
+.forumMessage{
+    width: -moz-available;
+}
 
 
 @media (max-device-width: 650px), (max-device-height: 650px) and (hover: none){

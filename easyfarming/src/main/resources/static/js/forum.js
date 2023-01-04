@@ -1,4 +1,4 @@
-setTimeout(function(){
+window.addEventListener("load", async () => {
     const list_message = document.querySelector("#forum");
     fetch('/forumMessages/allForumMessages',
         {
@@ -14,18 +14,19 @@ setTimeout(function(){
 
             for(let d of data) {
                 const children = document.createElement("div");
-                children.appendChild(addToChild(d["username"], "h1"));
-                children.appendChild(addToChild(d["question"], "h1"));
-                children.appendChild(addToChild(d["username1"], "p"));
-                children.appendChild(addToChild(d["answer1"], "p"));
-                children.appendChild(addToChild(d["username2"], "p"));
-                children.appendChild(addToChild(d["answer2"], "p"));
-                children.appendChild(addToChild(d["username3"], "p"));
-                children.appendChild(addToChild(d["answer3"], "p"));
-                children.appendChild(addToChild(d["username4"], "p"));
-                children.appendChild(addToChild(d["answer4"], "p"));
-                children.appendChild(addToChild(d["username5"], "p"));
-                children.appendChild(addToChild(d["answer5"], "p"));
+                children.className = "forumDiv";
+                children.appendChild(addToChild(d["username"], "h2"));
+                children.appendChild(addToChild(d["question"], "h2"));
+                children.appendChild(addToChild(d["username1"], "a"));
+                children.appendChild(addToChild(d["answer1"], "div"));
+                children.appendChild(addToChild(d["username2"], "a"));
+                children.appendChild(addToChild(d["answer2"], "div"));
+                children.appendChild(addToChild(d["username3"], "a"));
+                children.appendChild(addToChild(d["answer3"], "div"));
+                children.appendChild(addToChild(d["username4"], "a"));
+                children.appendChild(addToChild(d["answer4"], "div"));
+                children.appendChild(addToChild(d["username5"], "a"));
+                children.appendChild(addToChild(d["answer5"], "div"));
                 list_message.appendChild(children);
             }
 
@@ -33,7 +34,7 @@ setTimeout(function(){
         .catch(error => {
             console.log(error);
         });
-}, 10000)
+});
 
 function addToChild(data, tag) {
     const children = document.createElement(tag);
