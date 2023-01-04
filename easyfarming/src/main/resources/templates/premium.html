@@ -46,7 +46,7 @@
                     <img id="image"class="modal-image"/>
                     <h2>Description:</h2>
                     <div class="form-group">
-                        <textarea type="text" class="modal-info" id="description" value="description" rows="3" maxlength="200"></textarea>
+                        <textarea type="text" class="modal-info" id="description1" value="description" rows="3" maxlength="200"></textarea>
                     </div>
                     <!--<h2>Description:</h2>
                     <input type="text" id="description" class="modal-info"/>
@@ -76,6 +76,9 @@
               </div>
             </div>
         </div>
+        <div>
+            <p>Para as alterações serem vistas, dar reload à página</p>
+        </div>
   
     </div>
     <script type="text/javascript">
@@ -104,7 +107,7 @@
                                     data-plant-taxonomygenus="${data[j].genus}"
                                     data-plant-taxonomykingdom="${data[j].kingdom}"
                                     data-plant-taxonomyorder="${data[j].orderr}"
-                                    data-plant-taxonomyphylum="${data[j].phylum}
+                                    data-plant-taxonomyphylum="${data[j].phylum}"
                                     data-plant-harmless="${data[j].harmless}">Edit</button>`;
                     list_el.appendChild(child);
                 }
@@ -122,7 +125,6 @@
                 const plantTaxonomy4 = button.data('plant-taxonomyorder')
                 const plantTaxonomy5 = button.data('plant-taxonomyphylum')
                 const plantHarmless = button.data('plant-harmless')
-                console.log(button.data('plant-harmless'))
                 // Update the modal's content
                 const modal = $(this)
                 modal.find('.modal-title').text(plantName)
@@ -137,6 +139,54 @@
                 modal.find('.modal-harmless').val(plantHarmless)
                 
         });
+        
+            // Obter os valores dos campos de formulário
+            // document.getElementById("all-plants").addEventListener("click", function(e){
+            //     const name = e.target.getAttribute("data-plant-name");
+            //     const description = e.target.getAttribute("data-plant-description");
+            //     const image = e.target.getAttribute("data-plant-image");
+            //     const family = e.target.getAttribute("data-plant-taxonomyfamily");
+            //     const genus = e.target.getAttribute("data-plant-taxonomygenus");
+            //     const kingdom = e.target.getAttribute("data-plant-taxonomykingdom");
+            //     const orderr = e.target.getAttribute("data-plant-taxonomyorder");
+            //     const phylum = e.target.getAttribute("data-plant-taxonomyphylum");
+            //     const harmless = e.target.getAttribute("data-plant-harmless");
+            // });
+            const updatePlant = () => {
+                const name1 = document.querySelector(".modal-title").innerHTML;
+                const description = document.querySelector(".modal-info").value;
+                const family = document.querySelector(".modal-taxonomy1").value;
+                const genus = document.querySelector(".modal-taxonomy2").value;
+                const kingdom = document.querySelector(".modal-taxonomy3").value;
+                const orderr = document.querySelector(".modal-taxonomy4").value;
+                const phylum = document.querySelector(".modal-taxonomy5").value;
+                const harmless = document.querySelector(".modal-harmless").value;
+                console.log(name1);
+                console.log(family);
+            // Criar um objeto Plant com os valores dos campos de formulário
+            const plantUpdates = {description, family, genus, kingdom, orderr, phylum, harmless };
+            console.log(plantUpdates);
+            // Enviar uma solicitação POST para o controlador de atualização de plantas, passando o objeto Plant como corpo da solicitação
+            fetch(`/api/v1/updatePlant/${name1}`, {
+              method: "PUT",
+              body: JSON.stringify(plantUpdates),
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                // Aqui pode colocar o código que deseja executar quando a atualização for bem-sucedida
+              })
+              .catch(error => {
+                // Aqui pode colocar o código que deseja executar em caso de erro
+              });
+        }
+        
+
+        // Adicionar um ouvinte de clique ao botão de atualização
+        const updateButton = document.querySelector("#edit-button");
+        updateButton.addEventListener("click", updatePlant);
     </script>
 </div>
 </body>
