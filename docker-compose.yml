@@ -15,26 +15,21 @@ services:
         timeout: 10s
         retries: 2
 
-  mysql:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password 
-    ports: 
-       - "3306:3306"
+  dataBase:
+    image: mysql:latest
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
     environment:
+      MYSQL_ROOT_PASSWORD: user
       MYSQL_DATABASE: easyfarming
       MYSQL_USER: user
       MYSQL_PASSWORD: user
-      MYSQL_ROOT_PASSWORD: user
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
     volumes:
-      - datafiles:/var/lib/mysql
-    restart: always
-    cap_add:
-      - SYS_NICE  # CAP_SYS_NICE
-    healthcheck:
-      test: "mysql easyfarming -uuser -puser -e 'SELECT 1;'"
-      interval: 20s
-      timeout: 10s
-      retries: 2
+      - my-db:/var/lib/mysql
 
   app:
     build: ./easyfarming
@@ -43,14 +38,14 @@ services:
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/easyfarming?useSSL=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://dataBase:3306/easyfarming?useSSL=true
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: user
-      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.MySQL8Dialect"
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL5InnoDBDialect
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       PORT: 8090
     depends_on:
-      - mysql
+      - dataBase
       - rabbitmq
     ports:
       - "8090:8090"
@@ -64,10 +59,10 @@ services:
     build: ./generator
     depends_on:
       - rabbitmq
-      - mysql
+      - dataBase
       - app
     links:
       - rabbitmq
 
 volumes:
-  datafiles:
+  my-db:
