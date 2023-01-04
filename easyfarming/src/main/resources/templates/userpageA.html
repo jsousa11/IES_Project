@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
     <script src= "js/date.js" defer> </script>
+    <script src="js/messages.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta nome="viewport" content=" witdth= device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -18,6 +19,7 @@
     <div class = "center">
         <div class="logo"><img src="assets/Logotipo planta com folhas.png" height="150" width="150"></div><!--logo-->
         <div class="menu">
+            <a href="/forum.html" th:href="@{/forum}">Forum</a>
             <a href="/login.html" th:href="@{/login}">Logout</a>
         </div><!--menu-->
     </div><!--center-->
@@ -51,6 +53,9 @@
             <input type="submit" id="new-plant-input" value="Add Plant"/>
         </form>
         <div class="plant-list">
+           <div class="messages">
+                <ul id="messages"></ul>
+           </div>
            <h1 class="h1-upload">Your plants:</h1> 
            <ul id="plants"></ul>
            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
